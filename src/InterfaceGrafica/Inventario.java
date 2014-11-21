@@ -5,33 +5,35 @@
  */
 package InterfaceGrafica;
 
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  *
  * @author pedro_000
  */
-public class Jogo extends BasicGame {
-
-    public Jogo(String title) {
-        super(title);
-    }
+public class Inventario extends BasicGameState{
 
     @Override
-    public void init(GameContainer container) throws SlickException {
+    public int getID() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

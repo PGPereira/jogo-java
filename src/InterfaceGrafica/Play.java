@@ -27,10 +27,18 @@ public class Play extends BasicGameState{
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        g.drawString("Jogo, aperte esc para sair", 50, 50);
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        Input input = container.getInput();
+        keyboardInput(input, game);
     }
     
+    public void keyboardInput(Input input, StateBasedGame game){
+        if (input.isKeyPressed(Input.KEY_ESCAPE)){
+            game.enterState(0);
+        }
+    }
 }

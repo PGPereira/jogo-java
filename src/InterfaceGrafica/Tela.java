@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import org.lwjgl.input.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -35,7 +36,7 @@ public class Tela extends StateBasedGame {
         AppGameContainer appgc; 
         try {
             appgc = new AppGameContainer(new Tela(gamename));
-            appgc.setDisplayMode(640, 320, false);
+            appgc.setDisplayMode(1200, 600, false);
             appgc.start();
         } catch (SlickException e){
         

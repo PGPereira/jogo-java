@@ -39,7 +39,7 @@ public class TrabalhoFinal {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws ItemNaoGeradoException, InterruptedException {
+    /*public static void main(String[] args) throws ItemNaoGeradoException, InterruptedException {
         /*ArrayList<Personagem> listaDePersonagem = new ArrayList<>();
         
         listaDePersonagem.add(new Personagem("Carina", "Prima do Dultra"));
@@ -65,10 +65,10 @@ public class TrabalhoFinal {
         entraNoPalco(listaDePersonagem.get(PessoaPega));
         }*/
         
-        while(true){
+       /* while(true){
             Equipamento equip = GeradorDeItems.geraEquipamento(Dice.rolagem(110));
             Arma arma = GeradorDeItems.geraArma(Dice.rolagem(110));
             Thread.sleep(1000);
         }
-    }
+    }*/
 }
