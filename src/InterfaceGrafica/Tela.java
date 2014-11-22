@@ -18,11 +18,15 @@ public class Tela extends StateBasedGame {
     public static final String gamename = "Trabalho Final: O Jogo";
     public static final int menu = 0;
     public static final int play = 1;
+    
     //
-    public Tela(String gamename) {
+    public Tela(String gamename){
         super(gamename);
+        
         this.addState(new Menu(menu));
         this.addState(new Play(play));
+        
+        this.enterState(menu);
     }
 
     @Override

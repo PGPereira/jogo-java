@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package InterfaceGrafica;
+import SimuladorDeDados.Dice;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -19,6 +20,8 @@ public class Menu extends BasicGameState {
     private Image play;
     private Image exit;
     private Image Background;
+    
+    private Music music;
 
     Menu(int menu) {
     }
@@ -33,6 +36,10 @@ public class Menu extends BasicGameState {
         play = new Image("images/play.png");
         exit = new Image("images/exit.png");
         Background = new Image("images/26-mona-bazooka-banksy.jpg");
+        
+        music = new Music("music/"+Dice.rolagem(22)+".ogg");
+        music.setVolume(0.4f);
+        music.loop();
     }
 
     @Override

@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Base" tilewidth="32" tileheight="32">
-  <image source="../../../../Pictures/Tile1.png" width="512" height="384"/>
+  <image source="Tile1.png" width="512" height="384"/>
  </tileset>
  <tileset firstgid="193" name="Objetos" tilewidth="32" tileheight="32">
-  <image source="../../../../Pictures/Tile2.png" width="512" height="512"/>
+  <image source="Tile2.png" width="512" height="512"/>
  </tileset>
- <layer name="Background" width="40" height="20">
+ <layer name="Background" width="40" height="20" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3TqQEAAAjDwML+Q2MYAMcXcT6iNUmGMk/dHfht6gZdOz4yvQ8AgMsC+yb6YYAMAAA=
   </data>
  </layer>
  <layer name="Objetos" width="40" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3SIQ6AMAyF4U6i0Jxk58fgMdwBPALUWtFQgyDdspfQP3kCs3xpyESUwbfzDt6YqEsLbzOT79X4Lt7d0Uf0GG3qE5cOKfUhJvdE9el/iOrTWvjOim/98X41C5+v8PkKn6+vvrkV5CXk+w0J2zcZH/IKvoSk5YAMAAA=
+   H4sIAAAAAAAACzNnYGAwH+T4JRC/Yhg4cAyIryHhY1BxmPt+AvGvgXEaHMDciAxg7husYDC7DxSeg9V9sHQ4WN0HA7Rw31cqmjUSw4+aYNR9lIFR91EGRt1HGSDVfQdp5RAcYDCHHyfj4HafJJL7BjMGAM2Vb6CADAAA
+  </data>
+ </layer>
+ <layer name="Transicao" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OMQ0AAAgDsPl3hyM87CEkrYImNOY6AAAADy0eWZ09gAwAAA==
+  </data>
+ </layer>
+ <layer name="Enchant" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OsQkAMAgAQTOB+28rFmltTeAOvv+If+TZPpi9+tdfNwAA2FRtSFZ4gAwAAA==
   </data>
  </layer>
 </map>
