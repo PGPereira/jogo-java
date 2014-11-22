@@ -36,7 +36,7 @@ public class Tela extends StateBasedGame {
         AppGameContainer appgc; 
         try {
             appgc = new AppGameContainer(new Tela(gamename));
-            appgc.setDisplayMode(1200, 600, false);
+            appgc.setDisplayMode(1280, 640, false);
             appgc.start();
         } catch (SlickException e){
         

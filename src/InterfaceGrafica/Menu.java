@@ -13,9 +13,8 @@ import org.newdawn.slick.state.*;
  * @author pedro_000
  */
 public class Menu extends BasicGameState {
-
     private String mouse = "";
-    private final int alturaDaTela = 600;
+    private final int alturaDaTela = 640;
 
     private Image play;
     private Image exit;
@@ -38,7 +37,7 @@ public class Menu extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        Background.draw(0, 0, 0.72f);
+        Background.draw(0, 0, 0.77f);
         g.drawString("Bem vindo ao Trabalho Final!", 100, 50);
         play.draw(100, 100, 50, 50);
         exit.draw(100, 200, 50, 50);
@@ -68,7 +67,6 @@ public class Menu extends BasicGameState {
                 System.exit(0);
             }
         }
-
         
         //Botão de Sair
         mouse = xpos + ", " + ypos;

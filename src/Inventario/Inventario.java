@@ -19,7 +19,7 @@ public class Inventario {
     private int Moedas;
     private short QuantidadeInicialDeComida;
     private final ArrayList<Provisao> Comida = new ArrayList<>();
-    private final ArrayList<Item> Inventario = new ArrayList<>();
+    private final ArrayList<Item> Inventario = new ArrayList<>(30);
 
     public Inventario() {
         Moedas = Dice.multiplaRolagem(50, 4);        
