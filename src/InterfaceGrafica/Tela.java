@@ -17,14 +17,25 @@ import org.newdawn.slick.state.*;
 public class Tela extends StateBasedGame {
     public static final String gamename = "Trabalho Final: O Jogo";
     public static final int menu = 0;
-    public static final int play = 1;
+    public static final int invetario = 1;
+    public static final int batalha = 2;
+    
+    public static final int fase1 = 3;
+    public static final int fase2 = 4;
+    public static final int fase3 = 5;
+    public static final int fase4 = 6;
     
     //
     public Tela(String gamename){
         super(gamename);
         
         this.addState(new Menu(menu));
-        this.addState(new Play(play));
+        this.addState(new Inventario(invetario));
+        
+        this.addState(new Fase1(fase1));
+        this.addState(new Fase2(fase2));
+        this.addState(new Fase3(fase3));
+        this.addState(new Fase4(fase4));
         
         this.enterState(menu);
     }
@@ -32,7 +43,7 @@ public class Tela extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
         this.getState(menu).init(container, this);
-        this.getState(play).init(container, this);
+        this.getState(fase1).init(container, this);
         this.enterState(menu);
     }
     

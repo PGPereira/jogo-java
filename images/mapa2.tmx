@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tile1" tilewidth="32" tileheight="32">
+  <image source="Tile1.png" width="512" height="384"/>
+ </tileset>
+ <tileset firstgid="193" name="Tile2" tilewidth="32" tileheight="32">
+  <image source="Tile2.png" width="512" height="512"/>
+ </tileset>
+ <layer name="Background" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3QMREAQAjEwPNvBRz8iwMXpEiRSb+VpLeC/m0f/Gsf/fQjOOmnH/HXPvrpR3DSTz/iB/rb4jWADAAA
+  </data>
+ </layer>
+ <layer name="Objetos" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC92WWw5AMBBFp/v/48sS2AGfduK1AboAmmqICNPbh8ZJbkJEncxUMwMRLYwMzEjw2TXt6foJ4/cFpi6potxC16bbg3DXu8JNxytf7i0Of/Jz2UeKHnjHtn53ftOeN2aL7xiQ/uZCJxP6nuuHgPiVWyo6/EKC+NVbGkrXryP3f4XLSNj5EstPzROoXwxSP5/R/sYC7W8sQvZ39LCGmU85871tpIc1lNsKFFSoZIAMAAA=
+  </data>
+ </layer>
+ <layer name="Transicao" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OAQkAMAgAMG3w/rFMZAfhCLIlWAQTtR0AAPjo5faAqxrK5gn3gAwAAA==
+  </data>
+ </layer>
+</map>

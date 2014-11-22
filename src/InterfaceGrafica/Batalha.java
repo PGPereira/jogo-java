@@ -15,14 +15,11 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author pedro_000
  */
-public class Inventario extends BasicGameState{
-
-    Inventario(int invetario) {
-    }
+public class Batalha extends BasicGameState{
 
     @Override
     public int getID() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -35,6 +32,5 @@ public class Inventario extends BasicGameState{
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-    }
-    
+    }    
 }

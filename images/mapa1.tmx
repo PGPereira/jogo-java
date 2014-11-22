@@ -6,7 +6,7 @@
  <tileset firstgid="193" name="Objetos" tilewidth="32" tileheight="32">
   <image source="Tile2.png" width="512" height="512"/>
  </tileset>
- <layer name="Background" width="40" height="20" visible="0">
+ <layer name="Background" width="40" height="20">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3TqQEAAAjDwML+Q2MYAMcXcT6iNUmGMk/dHfht6gZdOz4yvQ8AgMsC+yb6YYAMAAA=
   </data>
