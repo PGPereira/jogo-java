@@ -19,7 +19,6 @@ public class Tela extends StateBasedGame {
     public static final int menu = 0;
     public static final int inventario = 1;
     public static final int batalha = 2;
-
     public static final int fase1 = 3;
     public static final int fase2 = 4;
     public static final int fase3 = 5;
@@ -31,7 +30,7 @@ public class Tela extends StateBasedGame {
 
         this.addState(new Menu(menu));
         this.addState(new Inventario(inventario));
-        //this.addState(new Batalha(batalha));
+        this.addState(new Batalha(batalha));
         this.addState(new Fase1(fase1));
         this.addState(new Fase2(fase2));
         this.addState(new Fase3(fase3));
@@ -44,7 +43,7 @@ public class Tela extends StateBasedGame {
     public void initStatesList(GameContainer container) throws SlickException {
         this.getState(menu).init(container, this);
         this.getState(inventario).init(container, this);
-        
+        this.getState(batalha).init(container, this);
         this.getState(fase1).init(container, this);
         this.getState(fase2).init(container, this);
         this.getState(fase3).init(container, this);

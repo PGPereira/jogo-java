@@ -16,6 +16,7 @@ import org.newdawn.slick.state.*;
  */
 public class Menu extends BasicGameState {
     private final int alturaDaTela = 640;
+    
     private int mouseX;
     private int mouseY;
 

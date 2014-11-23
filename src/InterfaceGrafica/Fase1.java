@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import SimuladorDeDados.Dice;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.TiledMap;
@@ -150,6 +151,12 @@ public class Fase1 extends BasicGameState {
             throws SlickException{
         if (mapaAtual.getTileId(x, y, transitionLayer) != 0){
             game.enterState(4);
-        } 
+        } else {
+            //int entrada = Dice.rolagem(5);
+            //if (entrada == 1){
+              //  game.addState(new Batalha(7));
+                //game.getState(7).init(null, game);
+            //}
+        }
     }
 }
