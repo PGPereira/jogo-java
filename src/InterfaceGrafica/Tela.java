@@ -64,6 +64,5 @@ public class Tela extends StateBasedGame {
         } catch (SlickException e) {
 
         }
-
     }
 }

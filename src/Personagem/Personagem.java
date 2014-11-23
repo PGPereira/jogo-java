@@ -18,31 +18,36 @@ import java.text.DecimalFormat;
  *
  * @author Pedro Gabriel Drumond Pereira
  */
-public class Personagem implements Persona{
+public class Personagem implements Persona {
+
     private final Ficha ficha;
     private final Inventario inventario;
     private final Metabolismo metabolismo;
-    
+
     private int hpAtual;
     private static final int criticoBase = 5;
     private static final int multiplicadorCriticoBase = 200;
-    
+
     private static final int atkFisBase = 5;
     private static final int atkMagBase = 5;
-    
+
     private static final int defFisBase = 5;
     private static final int defMagBase = 5;
-    
+
     private static final int esquiva = 5;
     private static final int pontaria = 5;
     private static final int iniciativa = 3;
-    
+
+    public int getPontosParaDistribuir() {
+        return pontosParaDistribuir;
+    }
+
     public Personagem(String nome, String classe) {
         ficha = new Ficha(nome, classe);
         inventario = new Inventario();
         metabolismo = new Metabolismo(this);
     }
-    
+
     private int nivel = 1;
     private int xpAtual = 0;
     private int nextLevelXP = 50;
@@ -55,11 +60,10 @@ public class Personagem implements Persona{
     public int getNextLevelXP() {
         return nextLevelXP;
     }
-    
-    
-    public void GanhaXP(int Experiencia){
+
+    public void GanhaXP(int Experiencia) {
         xpAtual += Experiencia;
-        if (xpAtual >= nextLevelXP){
+        if (xpAtual >= nextLevelXP) {
             levelUp();
         }
     }
@@ -67,7 +71,7 @@ public class Personagem implements Persona{
     public Inventario getInventario() {
         return inventario;
     }
-    
+
     public Elmo elmo;
     public Calcao calcao;
     public Botas botas;
@@ -118,25 +122,17 @@ public class Personagem implements Persona{
         this.inventario.RecebeItem(this.peitoral);
         this.peitoral = peitoral;
     }
-    
-    private void levelUp(){
+
+    private void levelUp() {
         xpAtual -= nextLevelXP;
         nivel++;
         nextLevelXP *= nivel;
-        
+
         pontosParaDistribuir += Dice.multiplaRolagem(2, 3);
-        
-        //Testa level up
-        while (pontosParaDistribuir > 0){
-            metodoDeTesteLevelUP(Dice.rolagem(4));
-            pontosParaDistribuir--;
-        }
-        
-        this.ImprimePersonagem();
     }
-    
-    private void metodoDeTesteLevelUP(int i){
-        switch (i){
+
+    private void metodoDeTesteLevelUP(int i) {
+        switch (i) {
             case 1:
                 adicionaPontoConstitution();
                 break;
@@ -153,90 +149,103 @@ public class Personagem implements Persona{
                 System.out.println("Deu problema!");
         }
     }
-    
-    public void adicionaComida(int i){
+
+    public void adicionaComida(int i) {
         this.inventario.defineQuantidadeInicialDeComida(i);
     }
-    
+
     //Pontos adicionados no level up - Escolhidos pelo jogador
-    public void adicionaPontoConstitution(){
-        this.ficha.adicionaPontoConstitution();
+    public void adicionaPontoConstitution() {
+        if (this.pontosParaDistribuir > 0) {
+            this.pontosParaDistribuir--;
+            this.ficha.adicionaPontoConstitution();
+        }
     }
-    public void adicionaPontoDexterity(){
-        this.ficha.adicionaPontoDexterity();
+
+    public void adicionaPontoDexterity() {
+        if (this.pontosParaDistribuir > 0) {
+            this.pontosParaDistribuir--;
+            this.ficha.adicionaPontoDexterity();
+        }
     }
-    public void adicionaPontoIntelligence(){
-        this.ficha.adicionaPontoIntelligence();
+
+    public void adicionaPontoIntelligence() {
+        if (this.pontosParaDistribuir > 0) {
+            this.pontosParaDistribuir--;
+            this.ficha.adicionaPontoIntelligence();
+        }
     }
-    public void adicionaPontoStrenght(){
-        this.ficha.adicionaPontoStrenght();
+
+    public void adicionaPontoStrenght() {
+        if (this.pontosParaDistribuir > 0) {
+            this.pontosParaDistribuir--;
+            this.ficha.adicionaPontoStrenght();
+        }
     }
-    
+
     //Caracteristicas da ficha.
-    
     public int getNivel() {
         return nivel;
     }
-    
+
     @Override
-    public String getNome(){
+    public String getNome() {
         return ficha.getNome();
     }
-    
-    public String getClasse(){
+
+    public String getClasse() {
         return ficha.getClasse();
     }
-    
-    public int getMoedasNoInventario(){
+
+    public int getMoedasNoInventario() {
         return inventario.getMoedas();
     }
-    
-    public int getQuantidadeProvisoes(){
+
+    public int getQuantidadeProvisoes() {
         return inventario.getQuantidadeProvisoes();
     }
-    
-    
+
     //Ficha + itens
-    public int getCharisma(){
+    public int getCharisma() {
         return ficha.getCharisma();
     }
 
-    public int getConstitution(){
+    public int getConstitution() {
         return ficha.getConstitution();
     }
-    
-    public int getConstitutionModifier(){
+
+    public int getConstitutionModifier() {
         return ficha.getConstitutionModifier();
     }
-    
-    public int getDexterity(){
+
+    public int getDexterity() {
         return ficha.getDexterity();
     }
-    
-    public int getDexterityModifier(){
+
+    public int getDexterityModifier() {
         return ficha.getDexterityModifier();
     }
-    
-    public int getIntelligence(){
+
+    public int getIntelligence() {
         return ficha.getIntelligence();
     }
-    
-    public int getIntelligenceModifier(){
+
+    public int getIntelligenceModifier() {
         return ficha.getIntelligenceModifier();
     }
-    
-    public int getStrenght(){
+
+    public int getStrenght() {
         return ficha.getStrenght();
     }
-    
-    public int getStrenghtModifier(){
+
+    public int getStrenghtModifier() {
         return ficha.getStrenghtModifier();
     }
-        
-    public float getPesoDoInventario(){
+
+    public float getPesoDoInventario() {
         return inventario.getPesoTotalInventario();
     }
-    
+
     //Provisao
     public Provisao comeProvisao() throws NoMoreFoodException {
         return inventario.pegaProvisaoParaComer();
@@ -245,36 +254,36 @@ public class Personagem implements Persona{
     public Metabolismo getMetabolismo() {
         return metabolismo;
     }
-    
-    private void ImprimePersonagem(){
+
+    private void ImprimePersonagem() {
         DecimalFormat fmt = new DecimalFormat("+#,##0;-#");
         DecimalFormat df = new DecimalFormat("#.##");
-        
+
         System.out.println("\n");
         System.out.println(" -------------------------------------------------------------");
         System.out.println("|\t");
-        
+
         System.out.println("|\tNome:\t" + this.getNome());
         System.out.println("|\tClasse:\t" + this.getClasse());
-        System.out.println("|\tNível:\t"  + this.getNivel() 
-                + "\tMoedas: " + this.getMoedasNoInventario() 
-                + "\tProvisões: " +  this.getQuantidadeProvisoes());
-        System.out.println("|\tPeso carregado:\t" + df.format(this.getPesoDoInventario()) +"Kg");
-        
+        System.out.println("|\tNível:\t" + this.getNivel()
+                + "\tMoedas: " + this.getMoedasNoInventario()
+                + "\tProvisões: " + this.getQuantidadeProvisoes());
+        System.out.println("|\tPeso carregado:\t" + df.format(this.getPesoDoInventario()) + "Kg");
+
         System.out.println("|\t");
         System.out.println("|-------------------------------------------------------------");
         System.out.println("|\t");
-        
+
         System.out.println("|\tStatus:");
-        System.out.println("|\tForça:\t\t"      + this.getStrenght()     
+        System.out.println("|\tForça:\t\t" + this.getStrenght()
                 + "\tModificador: " + fmt.format(this.getStrenghtModifier()));
-        System.out.println("|\tDestreza:\t"     + this.getDexterity()    
+        System.out.println("|\tDestreza:\t" + this.getDexterity()
                 + "\tModificador: " + fmt.format(this.getDexterityModifier()));
-        System.out.println("|\tConstituição:\t" + this.getConstitution() 
+        System.out.println("|\tConstituição:\t" + this.getConstitution()
                 + "\tModificador: " + fmt.format(this.getConstitutionModifier()));
-        System.out.println("|\tInteligência:\t" + this.getIntelligence() 
+        System.out.println("|\tInteligência:\t" + this.getIntelligence()
                 + "\tModificador: " + fmt.format(this.getIntelligenceModifier()));
-        
+
         System.out.println("|\t");
         System.out.println(" -------------------------------------------------------------\n");
     }

@@ -7,8 +7,6 @@ package InterfaceGrafica;
 
 import Excecoes.ItemNaoGeradoException;
 import Personagem.Personagem;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,6 +19,7 @@ public class Container {
     public Container(String nome, String tipo) {
         pontoDeRetorno = 3;
         personagem = new Personagem(nome, tipo);
+        
         for (int i = 0; i <= 32; i++){
             try {
                 personagem.getInventario().RecebeItem(Itens.GeradorDeItems.geraEquipamento(2));
@@ -28,6 +27,8 @@ public class Container {
                 i++;
             }
         }
+        
+        personagem.adicionaComida(0);
     }
 
     public static int getPontoDeRetorno() {
