@@ -16,7 +16,6 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author pedro_000
  */
 public class Inventario extends BasicGameState{
-
     Inventario(int invetario) {
     }
 

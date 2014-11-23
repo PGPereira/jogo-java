@@ -22,7 +22,6 @@ import org.newdawn.slick.tiled.TiledMap;
  * @author pedro_000
  */
 public class Fase3 extends BasicGameState {
-
     private final int spriteSize = 80;
     private final int tileSize = 32;
 
@@ -53,7 +52,7 @@ public class Fase3 extends BasicGameState {
         y = 1;
 
         Image[] walkLeft = {
-            //spriteSheet.getSubImage(0, 0),
+            spriteSheet.getSubImage(0, 0),
             spriteSheet.getSubImage(1, 0),
             spriteSheet.getSubImage(2, 0),
             spriteSheet.getSubImage(3, 0),

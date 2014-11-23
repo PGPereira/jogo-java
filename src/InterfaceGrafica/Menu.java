@@ -15,7 +15,6 @@ import org.newdawn.slick.state.*;
  * @author pedro_000
  */
 public class Menu extends BasicGameState {
-    
     private final int alturaDaTela = 640;
     
     private int mouseX;
@@ -41,15 +40,14 @@ public class Menu extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        container.setVSync(true);
-        container.setTargetFrameRate(60);
-        container.setMaximumLogicUpdateInterval(10);
-        container.setShowFPS(false);
-        container.setClearEachFrame(true);
-        container.setMusicOn(false);
         container.setUpdateOnlyWhenVisible(true);
-        container.setForceExit(false);
+        container.setVSync(true);
         container.setSmoothDeltas(true);
+        
+        container.setClearEachFrame(false);
+        //container.setShowFPS(false);
+        container.setMusicOn(false);
+        container.setForceExit(false);
         
         play = new Image("images/play.png");
         exit = new Image("images/exit.png");
@@ -61,7 +59,7 @@ public class Menu extends BasicGameState {
         select = new Sound("sound/select.wav");
         music.loop();
         
-        container.setMusicOn(true);
+        //container.setMusicOn(true);
     }
     
     @Override

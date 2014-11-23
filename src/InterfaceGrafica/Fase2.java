@@ -53,7 +53,7 @@ public class Fase2 extends BasicGameState {
         y = 1;
 
         Image[] walkLeft = {
-            //spriteSheet.getSubImage(0, 0),
+            spriteSheet.getSubImage(0, 0),
             spriteSheet.getSubImage(1, 0),
             spriteSheet.getSubImage(2, 0),
             spriteSheet.getSubImage(3, 0),
