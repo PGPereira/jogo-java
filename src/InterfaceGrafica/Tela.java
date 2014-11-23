@@ -56,7 +56,7 @@ public class Tela extends StateBasedGame {
 
     public static void main(String[] args) {
         AppGameContainer appgc;
-        Container c = new Container("Dropbox", "Spywere");
+        Container c = new Container("Link", "Não-Zelda");
         try {
             appgc = new AppGameContainer(new Tela(gamename));
             appgc.setDisplayMode(1280, 640, false);

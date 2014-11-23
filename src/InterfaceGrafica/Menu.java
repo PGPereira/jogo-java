@@ -43,7 +43,7 @@ public class Menu extends BasicGameState {
         container.setVSync(true);
         container.setSmoothDeltas(true);
         
-        container.setClearEachFrame(false);
+        container.setClearEachFrame(true);
         container.setShowFPS(false);
         container.setMusicOn(false);
         container.setForceExit(false);
@@ -58,7 +58,7 @@ public class Menu extends BasicGameState {
         select = new Sound("sound/select.wav");
         music.loop();
         
-        //container.setMusicOn(true);
+        container.setMusicOn(true);
     }
     
     @Override

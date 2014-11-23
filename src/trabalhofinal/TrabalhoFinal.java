@@ -12,6 +12,7 @@ import Excecoes.ItemNaoGeradoException;
 import SimuladorDeDados.Dice;
 import Personagem.Personagem;
 import Personagem.ThreadUpgrade;
+import java.util.ArrayList;
 
 /**
  *
@@ -38,9 +39,11 @@ public class TrabalhoFinal {
 
     /**
      * @param args the command line arguments
+     * @throws Excecoes.ItemNaoGeradoException
+     * @throws java.lang.InterruptedException
      */
-    /*public static void main(String[] args) throws ItemNaoGeradoException, InterruptedException {
-        /*ArrayList<Personagem> listaDePersonagem = new ArrayList<>();
+    public static void main(String[] args) throws ItemNaoGeradoException, InterruptedException {
+        ArrayList<Personagem> listaDePersonagem = new ArrayList<>();
         
         listaDePersonagem.add(new Personagem("Carina", "Prima do Dultra"));
         listaDePersonagem.add(new Personagem("Celitto","Jabinha Hutt"));
@@ -63,12 +66,12 @@ public class TrabalhoFinal {
         int pessoasPresentes = listaDePersonagem.size();
         int PessoaPega = Dice.rolagem(pessoasPresentes) - 1;
         entraNoPalco(listaDePersonagem.get(PessoaPega));
-        }*/
+        }
         
        /* while(true){
             Equipamento equip = GeradorDeItems.geraEquipamento(Dice.rolagem(110));
             Arma arma = GeradorDeItems.geraArma(Dice.rolagem(110));
             Thread.sleep(1000);
-        }
-    }*/
+        }*/
+    }
 }

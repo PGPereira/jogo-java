@@ -47,6 +47,15 @@ public class Personagem implements Persona{
     private int xpAtual = 0;
     private int nextLevelXP = 50;
     private int pontosParaDistribuir;
+
+    public int getXpAtual() {
+        return xpAtual;
+    }
+
+    public int getNextLevelXP() {
+        return nextLevelXP;
+    }
+    
     
     public void GanhaXP(int Experiencia){
         xpAtual += Experiencia;
