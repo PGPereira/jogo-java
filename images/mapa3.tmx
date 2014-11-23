@@ -12,22 +12,19 @@
  <tileset firstgid="705" name="Tile4" tilewidth="32" tileheight="32">
   <image source="Tile4.png" width="512" height="256"/>
  </tileset>
- <tileset firstgid="833" name="tile5" tilewidth="32" tileheight="32">
-  <image source="tile5.png" width="216" height="90"/>
- </tileset>
  <layer name="Background" width="40" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NkYGBgAmLGQUoLArHQIKYHOnxGSvidBRLnmGgXTssZKQs/mPuIUc8ExaSEE8h99Aw/JiLVDUT4kUPTO/wGc/obDb+BCz9nZgQeLOEHcstgDj+Q+wZr/QFyGz55Yv13F6j4Hg3TH6nhh5xOQZhW+ZYQPdDtE2q1X0bDDzsNAJwVoHiADAAA
+   H4sIAAAAAAAAC2NkYGBgAmLGQUoLArHQIKYHOnxGSvidBRLnmGgXTssZKQs/mPuIUc8ExaSEE8h99Aw/JiLVDUT4kUPTO/wGc/obDb+BCz9kMFjCj2GQhx8DHvmBDj8GAvLE+u8uUPE9GqY/UsMPHdAq3xKiB7p9Qq32y2j4YacBanMXSIAMAAA=
   </data>
  </layer>
  <layer name="Background2" width="40" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBrYE0EDMBscxAOwQJSA+0AwgApoF2AB5AjbAbjOEPS6cwPApGAS0AANmybCqADAAA
+   H4sIAAAAAAAAC2NgGAWjAAGaaWBmCxlmI6ttwalqYMBgc88oGAWjYGgAaSBmAmKZgXYIEpAeaAcQAEwD7QA8gBphNxjDH5ZOYXgUjAJaAADapND3gAwAAA==
   </data>
  </layer>
  <layer name="Objetos" width="40" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYOgAF0YGBlcSsAszAuNS48aI3WyYODbwHYhfQPEPZPcx0wbjMnsxkXYOlPtI0T/qvlH3DUf3bYGavRmtDNlCgn20dB8+MNDu24LbaUTbh2zGZiq6EZ/bkpkYGFKYCNtHyH+0AsVAt5Uw4ZbHU/XRBTQD3daCx32jYHgAAE7mrxaADAAA
+   H4sIAAAAAAAACxNmYGBgGcSYmWHwAmGGUfdRAshx30IgXkQDGpfZuNy3EA3DwEYg3kQDGpfZpPhvIMKPFP+Nht9o+A338EMGgyX8cIFjgyT88LmPGP8hu48W6Q4bSGZiYEhhIuw/fOFPS1AMdFsJEyQMsQFGuroGEzQD3dYCdR8hjA6I0UMtfI263qYquEYAE6OG1hgA7xfi/4AMAAA=
   </data>
  </layer>
  <layer name="Transicao" width="40" height="20">

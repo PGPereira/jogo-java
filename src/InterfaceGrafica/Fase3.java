@@ -11,6 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -29,6 +30,7 @@ public class Fase3 extends BasicGameState {
     
     private SpriteSheet spriteSheet;
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
+    private Sound enterStage;
     
     private int x, y;
     
@@ -42,13 +44,9 @@ public class Fase3 extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        container.setVSync(true);
-        container.setTargetFrameRate(60);
-        container.setMaximumLogicUpdateInterval(10);
-        
         mapaAtual = new TiledMap(mapa3);
-        
-        spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);        
+        spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);
+        enterStage = new Sound("sound/enterstage.wav");
                 
         x = 38;
         y = 1;
@@ -85,10 +83,10 @@ public class Fase3 extends BasicGameState {
             spriteSheet.getSubImage(4, 3),
         };
         
-        movingUp = new Animation(walkUp, x, false);
-        movingDown = new Animation(walkDown, x, false);
-        movingLeft = new Animation(walkLeft, x, false);
-        movingRight = new Animation(walkRight, x, false);
+        movingUp = new Animation(walkUp, 250, false);
+        movingDown = new Animation(walkDown, 250, false);
+        movingLeft = new Animation(walkLeft, 250, false);
+        movingRight = new Animation(walkRight, 250, false);
         
         link = movingUp;
     }
@@ -155,8 +153,10 @@ public class Fase3 extends BasicGameState {
             throws SlickException{
         if (mapaAtual.getTileId(x, y, transitionLayer) != 0){
             if(x == 38 && y == 1){
+                enterStage.play();
                 game.enterState(4);
             } else if (x == 7 && y == 19){
+                enterStage.play();
                 game.enterState(6);
             }
         } 

@@ -40,14 +40,14 @@ public class Tela extends StateBasedGame {
     }
 
     @Override
-    public void initStatesList(GameContainer container) throws SlickException {
-        this.getState(menu).init(container, this);
+    public void initStatesList(GameContainer container) throws SlickException {        
         this.getState(inventario).init(container, this);
         this.getState(batalha).init(container, this);
         this.getState(fase1).init(container, this);
         this.getState(fase2).init(container, this);
         this.getState(fase3).init(container, this);
         this.getState(fase4).init(container, this);
+        this.getState(menu).init(container, this);
         
         this.enterState(menu);
     }
