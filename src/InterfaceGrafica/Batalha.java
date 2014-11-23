@@ -17,6 +17,9 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class Batalha extends BasicGameState{
 
+    Batalha(int batalha) {
+    }
+
     @Override
     public int getID() {
         return 2;

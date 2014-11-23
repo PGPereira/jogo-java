@@ -15,7 +15,6 @@ import org.newdawn.slick.state.*;
  * @author pedro_000
  */
 public class Menu extends BasicGameState {
-
     private final int alturaDaTela = 640;
     private int mouseX;
     private int mouseY;
@@ -42,6 +41,8 @@ public class Menu extends BasicGameState {
         container.setVSync(true);
         container.setTargetFrameRate(60);
         container.setMaximumLogicUpdateInterval(10);
+        container.setShowFPS(false);
+        container.setSmoothDeltas(true);
         
         play = new Image("images/play.png");
         exit = new Image("images/exit.png");
@@ -55,9 +56,11 @@ public class Menu extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        Background.draw(0, 0, 0.77f);
-
         g.setColor(new Color(0xFF, 0x00, 0x00));
+        g.setAntiAlias(true);
+        g.setFont(null);
+        
+        Background.draw(0, 0, 0.77f);
 
         g.drawString("Do you like to hurt people?", 100, 50);
         play.draw(100, 100, 50, 50);

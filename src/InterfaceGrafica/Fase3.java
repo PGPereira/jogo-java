@@ -25,7 +25,7 @@ public class Fase3 extends BasicGameState {
     private final int tileSize = 32;
     
     private TiledMap mapaAtual;
-    private final String mapa1 = "images/mapa1.tmx";
+    private final String mapa3 = "images/mapa3.tmx";
     
     private SpriteSheet spriteSheet;
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
@@ -37,7 +37,7 @@ public class Fase3 extends BasicGameState {
 
     @Override
     public int getID() {
-        return 3;
+        return 5;
     }
 
     @Override
@@ -46,12 +46,12 @@ public class Fase3 extends BasicGameState {
         container.setTargetFrameRate(60);
         container.setMaximumLogicUpdateInterval(10);
         
-        mapaAtual = new TiledMap(mapa1);
+        mapaAtual = new TiledMap(mapa3);
         
         spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);        
                 
-        x = 1;
-        y = 18;
+        x = 38;
+        y = 1;
         
         Image[] walkLeft = {
             //spriteSheet.getSubImage(0, 0),
@@ -112,9 +112,9 @@ public class Fase3 extends BasicGameState {
 
         if (input.isKeyPressed(Input.KEY_UP) || input.isKeyPressed(Input.KEY_W)) {
             link = movingUp;
-            if (mapaAtual.getTileId(x, y, objectLayer) == 0){
+            if (mapaAtual.getTileId(x, y-1, objectLayer) == 0){
                 y--;
-                link.update(1);
+                link.update(delta);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -123,7 +123,7 @@ public class Fase3 extends BasicGameState {
             link = movingDown;
             if (mapaAtual.getTileId(x, y+1, objectLayer) == 0){
                 y++;
-                link.update(1);
+                link.update(delta);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -132,7 +132,7 @@ public class Fase3 extends BasicGameState {
             link = movingLeft;
             if (mapaAtual.getTileId(x-1, y, objectLayer) == 0){
                 x--;
-                link.update(1);
+                link.update(delta);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -141,7 +141,7 @@ public class Fase3 extends BasicGameState {
             link = movingRight;
             if (mapaAtual.getTileId(x+1, y, objectLayer) == 0){
                 x++;
-                link.update(1);
+                link.update(delta);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -154,7 +154,11 @@ public class Fase3 extends BasicGameState {
     private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
             throws SlickException{
         if (mapaAtual.getTileId(x, y, transitionLayer) != 0){
-            game.enterState(2);
+            if(x == 38 && y == 1){
+                game.enterState(4);
+            } else if (x == 7 && y == 19){
+                game.enterState(6);
+            }
         } 
     }
 }

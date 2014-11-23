@@ -23,6 +23,8 @@ public class Fase1 extends BasicGameState {
     private SpriteSheet spriteSheet;
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
     
+    private boolean trocado = false;
+    
     private int x, y;
     
     Fase1(int play) {
@@ -106,8 +108,8 @@ public class Fase1 extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_UP) || input.isKeyPressed(Input.KEY_W)) {
             link = movingUp;
             if (mapaAtual.getTileId(x, y-1, objectLayer) == 0){
+                link.update(delta);
                 y--;
-                link.update(1);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -115,8 +117,8 @@ public class Fase1 extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_DOWN) || input.isKeyPressed(Input.KEY_S)) {
             link = movingDown;
             if (mapaAtual.getTileId(x, y+1, objectLayer) == 0){
+                                link.update(delta);
                 y++;
-                link.update(1);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -124,8 +126,8 @@ public class Fase1 extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_LEFT) || input.isKeyPressed(Input.KEY_A)) {
             link = movingLeft;
             if (mapaAtual.getTileId(x-1, y, objectLayer) == 0){
+                link.update(delta);
                 x--;
-                link.update(1);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
@@ -133,8 +135,8 @@ public class Fase1 extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_RIGHT) || input.isKeyPressed(Input.KEY_D)) {
             link = movingRight;
             if (mapaAtual.getTileId(x+1, y, objectLayer) == 0){
+                link.update(delta);
                 x++;
-                link.update(1);
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }

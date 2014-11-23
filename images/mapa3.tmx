@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Tile1" tilewidth="32" tileheight="32">
+  <image source="Tile1.png" width="512" height="384"/>
+ </tileset>
+ <tileset firstgid="193" name="Tile2" tilewidth="32" tileheight="32">
+  <image source="Tile2.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="449" name="Tile3" tilewidth="32" tileheight="32">
+  <image source="Tile3.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="705" name="Tile4" tilewidth="32" tileheight="32">
+  <image source="Tile4.png" width="512" height="256"/>
+ </tileset>
+ <tileset firstgid="833" name="tile5" tilewidth="32" tileheight="32">
+  <image source="tile5.png" width="216" height="90"/>
+ </tileset>
+ <layer name="Background" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgAmLGQUoLArHQIKYHOnxGSvidBRLnmGgXTssZKQs/mPuIUc8ExaSEE8h99Aw/JiLVDUT4kUPTO/wGc/obDb+BCz9nZgQeLOEHcstgDj+Q+wZr/QFyGz55Yv13F6j4Hg3TH6nhh5xOQZhW+ZYQPdDtE2q1X0bDDzsNAJwVoHiADAAA
+  </data>
+ </layer>
+ <layer name="Background2" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBrYE0EDMBscxAOwQJSA+0AwgApoF2AB5AjbAbjOEPS6cwPApGAS0AANmybCqADAAA
+  </data>
+ </layer>
+ <layer name="Objetos" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYOgAF0YGBlcSsAszAuNS48aI3WyYODbwHYhfQPEPZPcx0wbjMnsxkXYOlPtI0T/qvlH3DUf3bYGavRmtDNlCgn20dB8+MNDu24LbaUTbh2zGZiq6EZ/bkpkYGFKYCNtHyH+0AsVAt5Uw4ZbHU/XRBTQD3daCx32jYHgAAE7mrxaADAAA
+  </data>
+ </layer>
+ <layer name="Transicao" width="40" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OQQEAIAgEsMMEJjczGeTDZ0uwhIlb2wMAAPjzzvYgae97rj+ADAAA
+  </data>
+ </layer>
+</map>
