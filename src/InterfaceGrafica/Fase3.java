@@ -160,6 +160,12 @@ public class Fase3 extends BasicGameState {
             Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
+        
+        if (input.isKeyPressed(Input.KEY_C)) {
+            enterMenu.play();
+            Container.setPontoDeRetorno(this.getID());
+            game.enterState(7);
+        }
     }
 
     private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)

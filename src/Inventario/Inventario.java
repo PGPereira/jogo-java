@@ -68,7 +68,12 @@ public class Inventario {
     public float getPesoDoInventario(){
         float pesoTotal = 0;
         //Netbeans fez para mim.
-        pesoTotal = Inventario.stream().map((Inventario1) -> Inventario1.getPeso()).reduce(pesoTotal, (accumulator, _item) -> accumulator + _item);
+        if(Inventario.size() != 0){
+            for (int i = 0; i <= this.Inventario.size(); i++){
+                pesoTotal += Inventario.get(i).getPeso();
+            }
+        }
+        /* pesoTotal = Inventario.stream().map((Inventario1) -> Inventario1.getPeso()).reduce(pesoTotal, (accumulator, _item) -> accumulator + _item);*/
         return pesoTotal;
     }
     

@@ -11,7 +11,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -19,8 +21,10 @@ import org.newdawn.slick.state.StateBasedGame;
  *
  * @author pedro_000
  */
-public class Ficha extends BasicGameState{
-    Ficha(int ficha) {}
+public class Ficha extends BasicGameState {
+
+    Ficha(int ficha) {
+    }
     private Image foto;
     
     private Image elmo;
@@ -30,16 +34,19 @@ public class Ficha extends BasicGameState{
     private Image botas;
     private Image teia;
     
+    private int mouseX;
+    private int mouseY;
+    private Sound select;
     
     private int equipSize;
     private Image background;
     private Personagem personagem;
-
+    
     @Override
     public int getID() {
         return 7;
     }
-
+    
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         equipSize = 220;
@@ -51,11 +58,13 @@ public class Ficha extends BasicGameState{
         botas = new Image("images/Botas.png");
         teia = new Image("images/Web.png");
         
+        select = new Sound("sound/select.wav");
+        
         background = new Image("images/png.png");
         personagem = Container.getPersonagem();
         personagem.adicionaComida(0);
     }
-
+    
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         DecimalFormat fmt = new DecimalFormat("+#,##0;-#");
@@ -68,13 +77,12 @@ public class Ficha extends BasicGameState{
         g.drawString("Nome: " + personagem.getNome(), 360, 30);
         g.drawString("Classe: " + personagem.getClasse(), 600, 30);
         
-        
         g.drawString("Nível: " + personagem.getNivel(), 360, 60);
         g.drawString("Experiência: " + personagem.getXpAtual() + " / " + personagem.getNextLevelXP(), 600, 60);
         
         g.drawString("Moedas: " + personagem.getMoedasNoInventario(), 360, 90);
         g.drawString("Provisões: " + personagem.getQuantidadeProvisoes(), 600, 90);
-        g.drawString("Peso: " + personagem.getPesoDoInventario() +" Kg", 840, 90);
+        //g.drawString("Peso: " + personagem.getPesoDoInventario() +" Kg", 840, 90); <- tá crachando o jogo
         
         g.drawLine(360, 120, 1250, 120);
         
@@ -113,39 +121,44 @@ public class Ficha extends BasicGameState{
         g.fillRect(780, 390, equipSize, equipSize);
         g.fillRect(1030, 390, equipSize, equipSize);
         
-        if (personagem.getCalcao() == null){
+        if (personagem.getCalcao() == null) {
             teia.draw(30, 390, equipSize, equipSize);
         } else {
             calcao.draw(30, 390, equipSize, equipSize);
         }
         
-        if (personagem.getElmo() == null){
+        if (personagem.getElmo() == null) {
             teia.draw(280, 390, equipSize, equipSize);
         } else {
             elmo.draw(280, 390, equipSize, equipSize);
         }
         
-        if (personagem.getManoplas() == null){
+        if (personagem.getManoplas() == null) {
             teia.draw(530, 390, equipSize, equipSize);
         } else {
             manoplas.draw(530, 390, equipSize, equipSize);
         }
         
-        if (personagem.getPeitoral()== null){
+        if (personagem.getPeitoral() == null) {
             teia.draw(780, 390, equipSize, equipSize);
         } else {
             peitoral.draw(30, 390, equipSize, equipSize);
         }
         
-        if (personagem.getBotas() == null){
+        if (personagem.getBotas() == null) {
             teia.draw(1030, 390, equipSize, equipSize);
         } else {
             peitoral.draw(1030, 390, equipSize, equipSize);
         }
         
     }
-
+    
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        Input input = container.getInput();
+        if (input.isKeyPressed(Input.KEY_ESCAPE) || input.isKeyPressed(Input.KEY_C)) {
+            select.play();
+            game.enterState(Container.getPontoDeRetorno());
+        }
     }
 }
