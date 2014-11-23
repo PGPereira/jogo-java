@@ -100,43 +100,49 @@ public class Fase2 extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
-
         int objectLayer = mapaAtual.getLayerIndex("Objetos");
         int transitionLayer = mapaAtual.getLayerIndex("Transicao");
         mapaAtual.getTileId(0, 0, objectLayer);
 
         if (input.isKeyPressed(Input.KEY_UP) || input.isKeyPressed(Input.KEY_W)) {
             link = movingUp;
-            if (mapaAtual.getTileId(x, y - 1, objectLayer) == 0) {
-                y--;
+            if (mapaAtual.getTileId((int) x, (int) (y - (delta * .1f)),
+                    objectLayer) == 0) {
+
                 link.update(delta);
+                y -= delta * .1f;
+
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
         if (input.isKeyPressed(Input.KEY_DOWN) || input.isKeyPressed(Input.KEY_S)) {
             link = movingDown;
-            if (mapaAtual.getTileId(x, y + 1, objectLayer) == 0) {
-                y++;
+            if (mapaAtual.getTileId((int) x,
+                    (int) (y + delta * .1f),
+                    objectLayer) == 0) {
                 link.update(delta);
+                y += delta * .1f;;
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
         if (input.isKeyPressed(Input.KEY_LEFT) || input.isKeyPressed(Input.KEY_A)) {
             link = movingLeft;
-            if (mapaAtual.getTileId(x - 1, y, objectLayer) == 0) {
-                x--;
+            if (mapaAtual.getTileId((int) (x - delta * .1f), y,
+                    objectLayer) == 0) {
                 link.update(delta);
+                x -= delta * .1f;
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
         if (input.isKeyPressed(Input.KEY_RIGHT) || input.isKeyPressed(Input.KEY_D)) {
             link = movingRight;
-            if (mapaAtual.getTileId(x + 1, y, objectLayer) == 0) {
-                x++;
+            if (mapaAtual.getTileId((int) (x + delta * .1f), y,
+                    objectLayer) == 0) {
                 link.update(delta);
+                x += delta * .1f;
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
