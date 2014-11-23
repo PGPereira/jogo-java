@@ -12,8 +12,8 @@ import SimuladorDeDados.Dice;
  * @author Pedro Gabriel Drumond Pereira
  */
 public class Arma extends Equipamento{
-    public Arma(int Nivel, String nome, String tipo, float peso, int valorMonetario) {
-        super(Nivel, nome, tipo, peso, valorMonetario);
+    public Arma(int Nivel, String nome, float peso, int valorMonetario) {
+        super(Nivel, nome, "Arma", peso, valorMonetario);
         
         /** O ataque máximo é a base mais um valor aleatório num range de 20% **/
         this.setAtaqueFisicoMin(Dice.multiplaRolagem(1 + Nivel/3, 9));

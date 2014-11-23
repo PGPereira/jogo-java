@@ -30,7 +30,7 @@ public class Tela extends StateBasedGame {
         super(gamename);
             
         this.addState(new Menu(menu));
-        this.addState(new Inventario(inventario));
+        this.addState(new Inventory(inventario));
         this.addState(new Batalha(batalha));
         this.addState(new Fase1(fase1));
         this.addState(new Fase2(fase2));

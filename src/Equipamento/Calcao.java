@@ -5,7 +5,6 @@
  */
 package Equipamento;
 
-import Itens.Item;
 import SimuladorDeDados.Dice;
 
 /**
@@ -15,12 +14,12 @@ import SimuladorDeDados.Dice;
 public class Calcao extends Equipamento {
 
     public Calcao(int Nivel, String nome, float peso, int valorMonetario) {
-        super(Nivel, nome, "Calção\t", peso, valorMonetario);
-        
-        this.setDefesaFisica(Dice.multiplaRolagem(1 + Nivel/3, 10));
-        this.setDefesaMagica(Dice.multiplaRolagem(1 + Nivel/3, 10));
-        this.setEsquiva(Dice.multiplaRolagem(1 + Nivel/3, 12));
-        this.setHealthPoints(Dice.multiplaRolagem(1 + Nivel/5, 8));
-        this.setManaPoints(Dice.multiplaRolagem(1 + Nivel/5, 8));
+        super(Nivel, nome, "Calção", peso, valorMonetario);
+
+        this.setDefesaFisica(Dice.multiplaRolagem(1 + Nivel / 3, 10));
+        this.setDefesaMagica(Dice.multiplaRolagem(1 + Nivel / 3, 10));
+        this.setEsquiva(Dice.multiplaRolagem(1 + Nivel / 3, 12));
+        this.setHealthPoints(Dice.multiplaRolagem(1 + Nivel / 5, 8));
+        this.setManaPoints(Dice.multiplaRolagem(1 + Nivel / 5, 8));
     }
 }

@@ -6,7 +6,6 @@
 package InterfaceGrafica;
 
 import Personagem.Personagem;
-import java.text.DecimalFormat;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -82,12 +81,11 @@ public class Ficha extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        DecimalFormat fmt = new DecimalFormat("+#,##0;-#");
-        DecimalFormat df = new DecimalFormat("#.##");
-        g.setColor(Color.white);
-
+        g.setColor(Color.black);
         background.draw(0, 0, 1280, 640);
         g.fillRect(30, 30, 300, 300);
+        
+        g.setColor(Color.white);
         foto.draw(30, 30, 300, 300);
         g.drawString("Nome: " + personagem.getNome(), 360, 30);
         g.drawString("Classe: " + personagem.getClasse(), 600, 30);
@@ -97,7 +95,7 @@ public class Ficha extends BasicGameState {
 
         g.drawString("Moedas: " + personagem.getMoedasNoInventario(), 360, 90);
         g.drawString("Provisões: " + personagem.getQuantidadeProvisoes(), 600, 90);
-        //g.drawString("Peso: " + personagem.getPesoDoInventario() +" Kg", 840, 90); <- tá crachando o jogo
+        //g.drawString("Peso: " + personagem.getPesoDoInventario() +" Kg", 840, 90); //<- tá crachando o jogo
 
         g.drawLine(360, 120, 1250, 120);
 
@@ -113,19 +111,19 @@ public class Ficha extends BasicGameState {
         g.drawString("Modificador: ", 600, 210);
         g.drawString(Integer.toString(personagem.getIntelligenceModifier()), 780, 210);
         add.draw(810, 210, 25, 25);
-        
+
         g.drawString("Destreza:", 360, 240);
         g.drawString(Integer.toString(personagem.getDexterity()), 500, 240);
         g.drawString("Modificador: ", 600, 240);
         g.drawString(Integer.toString(personagem.getDexterityModifier()), 780, 240);
         add.draw(810, 240, 25, 25);
-        
+
         g.drawString("Constituição:", 360, 270);
         g.drawString(Integer.toString(personagem.getConstitution()), 500, 270);
         g.drawString("Modificador: ", 600, 270);
         g.drawString(Integer.toString(personagem.getConstitutionModifier()), 780, 270);
         add.draw(810, 270, 25, 25);
-        
+
         g.drawLine(360, 330, 1250, 330);
 
         g.drawString("Calcao", 30, 360);
@@ -133,7 +131,8 @@ public class Ficha extends BasicGameState {
         g.drawString("Manoplas", 530, 360);
         g.drawString("Peitoral", 780, 360);
         g.drawString("Botas", 1030, 360);
-
+        
+        g.setColor(Color.black);
         g.fillRect(30, 390, equipSize, equipSize);
         g.fillRect(280, 390, equipSize, equipSize);
         g.fillRect(530, 390, equipSize, equipSize);
@@ -170,6 +169,7 @@ public class Ficha extends BasicGameState {
             botas.draw(1030, 390, equipSize, equipSize);
         }
 
+        g.setColor(Color.white);
         if (botasB) {
             g.fillRect(mouseX, mouseY, 200, 20);
             g.setColor(Color.black);
@@ -245,7 +245,7 @@ public class Ficha extends BasicGameState {
             peitoralB = false;
             botasB = false;
         }
-        
+
         //add.draw(810, 240, 25, 25);
         if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 205 && mouseY >= 180)) {
             if (Mouse.isButtonDown(0)) {
@@ -253,21 +253,21 @@ public class Ficha extends BasicGameState {
                 personagem.adicionaPontoStrenght();
             }
         }
-        
+
         if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 235 && mouseY >= 210)) {
             if (Mouse.isButtonDown(0)) {
                 select.play();
                 personagem.adicionaPontoIntelligence();
             }
         }
-        
+
         if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 265 && mouseY >= 240)) {
             if (Mouse.isButtonDown(0)) {
                 select.play();
                 personagem.adicionaPontoDexterity();
             }
         }
-        
+
         if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 295 && mouseY >= 270)) {
             if (Mouse.isButtonDown(0)) {
                 select.play();

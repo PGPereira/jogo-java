@@ -19,7 +19,7 @@ public class Inventario {
     private int Moedas;
     private short QuantidadeInicialDeComida;
     private final ArrayList<Provisao> Comida = new ArrayList<>();
-    private final ArrayList<Item> Inventario = new ArrayList<>(30);
+    private final ArrayList<Item> Inventario = new ArrayList<>(32);
 
     public Inventario() {
         Moedas = Dice.multiplaRolagem(50, 4);        
@@ -31,8 +31,16 @@ public class Inventario {
         this.adicionaProvisoes(QuantidadeInicialDeComida);
     }
     
+    public Item recebeReferenciaItem(int number){
+        return Inventario.get(number);
+    }
+    
     public void RecebeItem(Item item){
-        this.Inventario.add(item);
+        if ("Comida".equals(item.getTipo())){
+            this.adicionaProvisoes(1);
+        } else {
+            this.Inventario.add(item);
+        }
     }
 
     public int getMoedas() {

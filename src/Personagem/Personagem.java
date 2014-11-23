@@ -97,11 +97,11 @@ public class Personagem implements Persona {
     }
 
     public Botas getBotas() {
-        this.inventario.RecebeItem(this.botas);
         return botas;
     }
 
     public void setBotas(Botas botas) {
+        this.inventario.RecebeItem(this.botas);
         this.botas = botas;
     }
 

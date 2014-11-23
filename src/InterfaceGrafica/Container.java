@@ -22,7 +22,7 @@ public class Container {
         
         for (int i = 0; i <= 32; i++){
             try {
-                personagem.getInventario().RecebeItem(Itens.GeradorDeItems.geraEquipamento(2));
+                personagem.getInventario().RecebeItem(Itens.GeradorDeItems.geraItem(10));
             } catch (ItemNaoGeradoException ex) {
                 i++;
             }

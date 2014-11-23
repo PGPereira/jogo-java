@@ -15,12 +15,14 @@ import SimuladorDeDados.Dice;
  */
 public class GeradorDeItems {
     public static Item geraItem(int nivel) throws ItemNaoGeradoException{
-        switch(Dice.rolagem(3)){
+        switch(Dice.rolagem(5)){
             case 1:
                 return new Provisao();
             case 2:
+            case 3:
+            case 4:
                 return GeradorDeItems.geraEquipamento(nivel);
-            case 3: 
+            case 5: 
                 return GeradorDeItems.geraArma(nivel);
         }
         throw new ItemNaoGeradoException();
@@ -120,7 +122,7 @@ public class GeradorDeItems {
             }
         }
         
-        Equipamento.printEquipamento(equip);
+        //Equipamento.printEquipamento(equip);
         return equip;
     }
     
@@ -161,7 +163,7 @@ public class GeradorDeItems {
         
         int preço = adicionais * itemLevel;
         
-        Arma equip = new Arma(itemLevel, nome, "Arma", peso, preço);
+        Arma equip = new Arma(itemLevel, nome, peso, preço);
         equip.modificaAtaqueFisico(multiplicadorAtaqueF);
         equip.modificaAtaqueMagico(multiplicadorAtaqueM);
         
@@ -173,7 +175,7 @@ public class GeradorDeItems {
             }
         }
         
-        Equipamento.printEquipamento(equip);
+        //Equipamento.printEquipamento(equip);
         return equip;
     }
     
