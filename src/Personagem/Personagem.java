@@ -54,6 +54,10 @@ public class Personagem implements Persona{
             levelUp();
         }
     }
+
+    public Inventario getInventario() {
+        return inventario;
+    }
     
     public Elmo elmo;
     public Calcao calcao;

@@ -22,7 +22,7 @@ public class Menu extends BasicGameState {
     
     private int musicVolume = 5;
     private int musicNumber;
-    
+     
     private Music music;
     private Sound select;
     
@@ -30,8 +30,7 @@ public class Menu extends BasicGameState {
     private Image exit;
     private Image Background;
     
-    Menu(int menu) {
-    }
+    Menu(int menu){}
     
     @Override
     public int getID() {
@@ -45,7 +44,7 @@ public class Menu extends BasicGameState {
         container.setSmoothDeltas(true);
         
         container.setClearEachFrame(false);
-        //container.setShowFPS(false);
+        container.setShowFPS(false);
         container.setMusicOn(false);
         container.setForceExit(false);
         
@@ -141,7 +140,7 @@ public class Menu extends BasicGameState {
         if ((mouseX >= 100 && mouseX <= 150) && (mouseY <= 150 && mouseY >= 100)) {
             if (Mouse.isButtonDown(0)) {
                 select.play();
-                game.enterState(3);
+                game.enterState(Container.getPontoDeRetorno());
             }
         }
         

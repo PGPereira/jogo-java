@@ -6,22 +6,22 @@
  <tileset firstgid="193" name="Objetos" tilewidth="32" tileheight="32">
   <image source="Tile2.png" width="512" height="512"/>
  </tileset>
- <layer name="Background" width="40" height="20">
+ <layer name="Background" width="40" height="20" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3TqQEAAAjDwML+Q2MYAMcXcT6iNUmGMk/dHfht6gZdOz4yvQ8AgMsC+yb6YYAMAAA=
   </data>
  </layer>
  <layer name="Objetos" width="40" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACzNnYGAwH+T4JRC/Yhg4cAyIryHhY1BxmPt+AvGvgXEaHMDciAxg7husYDC7DxSeg9V9sHQ4WN0HA7Rw31cqmjUSw4+aYNR9lIFR91EGRt1HGSDVfQdp5RAcYDCHHyfj4HafJJL7BjMGAM2Vb6CADAAA
+   H4sIAAAAAAAACzNnYGAwH+T4JRC/Yhg4cAyIryHhY1BxmPt+AvGvgXEaHMDciAxg7husYDC7DxSeg9V9sHQ4WN0HA7Rw31cqmjUSw4+aYNR9lIFR91EGRt1HGRh1H/mAk3Fwu08SyX2DGQMAx4qlkIAMAAA=
   </data>
  </layer>
- <layer name="Transicao" width="40" height="20">
+ <layer name="Transicao" width="40" height="20" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3OMQ0AAAgDsPl3hyM87CEkrYImNOY6AAAADy0eWZ09gAwAAA==
   </data>
  </layer>
- <layer name="Enchant" width="40" height="20">
+ <layer name="Enchant" width="40" height="20" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3OsQkAMAgAQTOB+28rFmltTeAOvv+If+TZPpi9+tdfNwAA2FRtSFZ4gAwAAA==
   </data>

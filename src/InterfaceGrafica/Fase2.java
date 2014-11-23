@@ -6,6 +6,7 @@
 package InterfaceGrafica;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,6 +16,10 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.EmptyTransition;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
+import org.newdawn.slick.state.transition.VerticalSplitTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
@@ -32,9 +37,10 @@ public class Fase2 extends BasicGameState {
     private SpriteSheet spriteSheet;
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
     private Sound enterStage;
-
-    private int x, y;
-
+    private Sound enterMenu;
+    
+    private int linkX, linkY;
+    
     Fase2(int play) {
     }
 
@@ -48,9 +54,10 @@ public class Fase2 extends BasicGameState {
         mapaAtual = new TiledMap(mapa2);
         spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);
         enterStage = new Sound("sound/enterstage.wav");
+        enterMenu = new Sound("sound/entermenu.wav");
 
-        x = 38;
-        y = 1;
+        linkX = 38* tileSize ;
+        linkY = 2 * tileSize;
 
         Image[] walkLeft = {
             spriteSheet.getSubImage(0, 0),
@@ -80,10 +87,10 @@ public class Fase2 extends BasicGameState {
             spriteSheet.getSubImage(3, 3),
             spriteSheet.getSubImage(4, 3),};
 
-        movingUp = new Animation(walkUp, 250, false);
-        movingDown = new Animation(walkDown, 250, false);
-        movingLeft = new Animation(walkLeft, 250, false);
-        movingRight = new Animation(walkRight, 250, false);
+        movingUp = new Animation(walkUp, 150, false);
+        movingDown = new Animation(walkDown, 150, false);
+        movingLeft = new Animation(walkLeft, 150, false);
+        movingRight = new Animation(walkRight, 150, false);
 
         link = movingUp;
     }
@@ -91,76 +98,86 @@ public class Fase2 extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         mapaAtual.render(0, 0);
-        link.draw(x * tileSize - (spriteSize - tileSize) / 2,
-                y * tileSize - (spriteSize - tileSize),
+        link.draw(linkX - (spriteSize - tileSize) / 2,
+                linkY - (spriteSize - tileSize),
                 spriteSize,
                 spriteSize);
     }
 
-    @Override
+     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
+
         int objectLayer = mapaAtual.getLayerIndex("Objetos");
         int transitionLayer = mapaAtual.getLayerIndex("Transicao");
         mapaAtual.getTileId(0, 0, objectLayer);
 
-        if (input.isKeyPressed(Input.KEY_UP) || input.isKeyPressed(Input.KEY_W)) {
+        if (input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_W)) {
             link = movingUp;
-            if (mapaAtual.getTileId((int) x, (int) (y - (delta * .1f)),
+            link.update(delta);
+
+            if (mapaAtual.getTileId((int) ((linkX + 24) / 32),
+                    (int) ((linkY - delta * 0.5f) / 32),
                     objectLayer) == 0) {
-
-                link.update(delta);
-                y -= delta * .1f;
-
+                linkY -= delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
-        if (input.isKeyPressed(Input.KEY_DOWN) || input.isKeyPressed(Input.KEY_S)) {
+        if (input.isKeyDown(Input.KEY_DOWN) || input.isKeyDown(Input.KEY_S)) {
             link = movingDown;
-            if (mapaAtual.getTileId((int) x,
-                    (int) (y + delta * .1f),
+            link.update(delta);
+
+            if (mapaAtual.getTileId(((linkX + 24) / 32),
+                    (int) ((linkY + delta * 0.5f + 16) / 32),
                     objectLayer) == 0) {
-                link.update(delta);
-                y += delta * .1f;;
+                linkY += delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
-        if (input.isKeyPressed(Input.KEY_LEFT) || input.isKeyPressed(Input.KEY_A)) {
+        if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) {
             link = movingLeft;
-            if (mapaAtual.getTileId((int) (x - delta * .1f), y,
+            link.update(delta);
+
+            if (mapaAtual.getTileId((int) ((linkX - delta * 0.5f) / 32),
+                    (int) (linkY / 32),
                     objectLayer) == 0) {
-                link.update(delta);
-                x -= delta * .1f;
+                linkX -= delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
-        if (input.isKeyPressed(Input.KEY_RIGHT) || input.isKeyPressed(Input.KEY_D)) {
+        if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
             link = movingRight;
-            if (mapaAtual.getTileId((int) (x + delta * .1f), y,
+            link.update(delta);
+
+            if (mapaAtual.getTileId((int) ((linkX + delta * 0.5f + 24) / 32),
+                    (linkY / 32),
                     objectLayer) == 0) {
-                link.update(delta);
-                x += delta * .1f;
+                linkX += delta * 0.5f;
             }
             this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            enterMenu.play();
+            Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
     }
 
     private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
             throws SlickException {
-        if (mapaAtual.getTileId(x, y, transitionLayer) != 0) {
-            if (x == 38 && y == 1) {
+       if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
+            if (linkX/32 == 38 && linkY/32 == 1) {
                 enterStage.play();
-                game.enterState(3);
-            } else if (x == 9 && y == 16) {
+                game.enterState(3, new FadeOutTransition(Color.gray),
+                    new FadeInTransition(Color.white));
+            } else if (linkX/32 == 9 && linkY/32 == 16) {
                 enterStage.play();
-                game.enterState(5);
+                game.enterState(5, new  EmptyTransition(),
+                        new VerticalSplitTransition());
             }
         }
     }

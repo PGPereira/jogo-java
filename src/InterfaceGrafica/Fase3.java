@@ -15,6 +15,8 @@ import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.BlobbyTransition;
+import org.newdawn.slick.state.transition.CombinedTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
@@ -32,10 +34,10 @@ public class Fase3 extends BasicGameState {
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
     private Sound enterStage;
 
-    private int x, y;
+    private int linkX, linkY;
+    private Sound enterMenu;
 
-    Fase3(int play) {
-    }
+    Fase3(int play) {}
 
     @Override
     public int getID() {
@@ -47,9 +49,10 @@ public class Fase3 extends BasicGameState {
         mapaAtual = new TiledMap(mapa3);
         spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);
         enterStage = new Sound("sound/enterstage.wav");
+        enterMenu = new Sound("sound/entermenu.wav");
 
-        x = 38;
-        y = 1;
+        linkX = 38 * tileSize;
+        linkY = 1 * tileSize;
 
         Image[] walkLeft = {
             spriteSheet.getSubImage(0, 0),
@@ -79,10 +82,10 @@ public class Fase3 extends BasicGameState {
             spriteSheet.getSubImage(3, 3),
             spriteSheet.getSubImage(4, 3),};
 
-        movingUp = new Animation(walkUp, 250, false);
-        movingDown = new Animation(walkDown, 250, false);
-        movingLeft = new Animation(walkLeft, 250, false);
-        movingRight = new Animation(walkRight, 250, false);
+        movingUp = new Animation(walkUp, 150, false);
+        movingDown = new Animation(walkDown, 150, false);
+        movingLeft = new Animation(walkLeft, 150, false);
+        movingRight = new Animation(walkRight, 150, false);
 
         link = movingUp;
     }
@@ -90,8 +93,8 @@ public class Fase3 extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         mapaAtual.render(0, 0);
-        link.draw(x * tileSize - (spriteSize - tileSize) / 2,
-                y * tileSize - (spriteSize - tileSize),
+        link.draw(linkX - (spriteSize - tileSize) / 2,
+                linkY - (spriteSize - tileSize),
                 spriteSize,
                 spriteSize);
     }
@@ -99,67 +102,75 @@ public class Fase3 extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
+
         int objectLayer = mapaAtual.getLayerIndex("Objetos");
         int transitionLayer = mapaAtual.getLayerIndex("Transicao");
         mapaAtual.getTileId(0, 0, objectLayer);
 
-        if (input.isKeyPressed(Input.KEY_UP) || input.isKeyPressed(Input.KEY_W)) {
+        if (input.isKeyDown(Input.KEY_UP) || input.isKeyDown(Input.KEY_W)) {
             link = movingUp;
-            if (mapaAtual.getTileId((int) x, (int) (y - (delta * .1f)),
+            link.update(delta);
+
+            if (mapaAtual.getTileId((int) ((linkX + 24) / 32),
+                    (int) ((linkY - delta * 0.5f) / 32),
                     objectLayer) == 0) {
-
-                link.update(delta);
-                y -= delta * .1f;
-
+                linkY -= delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
-        if (input.isKeyPressed(Input.KEY_DOWN) || input.isKeyPressed(Input.KEY_S)) {
+        if (input.isKeyDown(Input.KEY_DOWN) || input.isKeyDown(Input.KEY_S)) {
             link = movingDown;
-            if (mapaAtual.getTileId((int) x,
-                    (int) (y + delta * .1f),
+            link.update(delta);
+
+            if (mapaAtual.getTileId(((linkX + 24) / 32),
+                    (int) ((linkY + delta * 0.5f + 16) / 32),
                     objectLayer) == 0) {
-                link.update(delta);
-                y += delta * .1f;;
+                linkY += delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
-        if (input.isKeyPressed(Input.KEY_LEFT) || input.isKeyPressed(Input.KEY_A)) {
+        if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)) {
             link = movingLeft;
-            if (mapaAtual.getTileId((int) (x - delta * .1f), y,
+            link.update(delta);
+
+            if (mapaAtual.getTileId((int) ((linkX - delta * 0.5f) / 32),
+                    (int) (linkY / 32),
                     objectLayer) == 0) {
-                link.update(delta);
-                x -= delta * .1f;
+                linkX -= delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
-        if (input.isKeyPressed(Input.KEY_RIGHT) || input.isKeyPressed(Input.KEY_D)) {
+        if (input.isKeyDown(Input.KEY_RIGHT) || input.isKeyDown(Input.KEY_D)) {
             link = movingRight;
-            if (mapaAtual.getTileId((int) (x + delta * .1f), y,
+            link.update(delta);
+
+            if (mapaAtual.getTileId((int) ((linkX + delta * 0.5f + 24) / 32),
+                    (linkY / 32),
                     objectLayer) == 0) {
-                link.update(delta);
-                x += delta * .1f;
+                linkX += delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            enterMenu.play();
+            Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
     }
 
     private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
             throws SlickException {
-        if (mapaAtual.getTileId(x, y, transitionLayer) != 0) {
-            if (x == 38 && y == 1) {
+        if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
+            if (linkX/32 == 38 && linkY/32 == 1) {
                 enterStage.play();
-                game.enterState(4);
-            } else if (x == 7 && y == 19) {
+                game.enterState(4, new CombinedTransition(), new BlobbyTransition());
+            } else if (linkX/32 == 1 && linkY/32 == 18) {
                 enterStage.play();
-                game.enterState(6);
+                game.enterState(6, new CombinedTransition(), new BlobbyTransition());
             }
         }
     }

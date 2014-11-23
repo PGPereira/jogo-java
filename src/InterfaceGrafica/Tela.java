@@ -15,7 +15,7 @@ import org.newdawn.slick.state.*;
 public class Tela extends StateBasedGame {
 
     public static final String gamename = "Trabalho Final: O Jogo";
-
+        
     public static final int menu = 0;
     public static final int inventario = 1;
     public static final int batalha = 2;
@@ -23,11 +23,12 @@ public class Tela extends StateBasedGame {
     public static final int fase2 = 4;
     public static final int fase3 = 5;
     public static final int fase4 = 6;
+    public static final int ficha = 7;
 
     //
     public Tela(String gamename) {
         super(gamename);
-
+            
         this.addState(new Menu(menu));
         this.addState(new Inventario(inventario));
         this.addState(new Batalha(batalha));
@@ -35,6 +36,7 @@ public class Tela extends StateBasedGame {
         this.addState(new Fase2(fase2));
         this.addState(new Fase3(fase3));
         this.addState(new Fase4(fase4));
+        this.addState(new Ficha(ficha));
 
         this.enterState(menu);
     }
@@ -54,6 +56,7 @@ public class Tela extends StateBasedGame {
 
     public static void main(String[] args) {
         AppGameContainer appgc;
+        Container c = new Container("Dropbox", "Spywere");
         try {
             appgc = new AppGameContainer(new Tela(gamename));
             appgc.setDisplayMode(1280, 640, false);
