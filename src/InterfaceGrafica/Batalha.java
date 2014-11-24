@@ -81,6 +81,7 @@ public class Batalha extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        g.setColor(Color.black);
         sky.draw(0, 0, 2.89f);
 
         valparaiso.draw(valparaiso2x, valparaisoY, Color.darkGray);

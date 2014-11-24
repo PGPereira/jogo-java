@@ -39,9 +39,11 @@ public class Fase2 extends BasicGameState {
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
     private Sound enterStage;
     private Sound enterMenu;
-
+    private final float velocidade = 0.4f;
+    
     private int linkX, linkY;
     private int deslocamento;
+    private Sound batalha;
 
     Fase2(int play) {
     }
@@ -57,6 +59,7 @@ public class Fase2 extends BasicGameState {
         spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);
         enterStage = new Sound("sound/enterstage.wav");
         enterMenu = new Sound("sound/entermenu.wav");
+        batalha = new Sound("sound/batalha.wav");
 
         linkX = 38 * tileSize;
         linkY = 2 * tileSize;
@@ -120,9 +123,9 @@ public class Fase2 extends BasicGameState {
             link.update(delta);
 
             if (mapaAtual.getTileId((int) ((linkX + 24) / 32),
-                    (int) ((linkY - delta * 0.5f) / 32),
+                    (int) ((linkY - delta * velocidade) / 32),
                     objectLayer) == 0) {
-                linkY -= delta * 0.5f;
+                linkY -= delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -132,9 +135,9 @@ public class Fase2 extends BasicGameState {
             link.update(delta);
 
             if (mapaAtual.getTileId(((linkX + 24) / 32),
-                    (int) ((linkY + delta * 0.5f + 16) / 32),
+                    (int) ((linkY + delta * velocidade + 16) / 32),
                     objectLayer) == 0) {
-                linkY += delta * 0.5f;
+                linkY += delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -143,10 +146,10 @@ public class Fase2 extends BasicGameState {
             link = movingLeft;
             link.update(delta);
 
-            if (mapaAtual.getTileId((int) ((linkX - delta * 0.5f) / 32),
+            if (mapaAtual.getTileId((int) ((linkX - delta * velocidade) / 32),
                     (int) (linkY / 32),
                     objectLayer) == 0) {
-                linkX -= delta * 0.5f;
+                linkX -= delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -155,10 +158,10 @@ public class Fase2 extends BasicGameState {
             link = movingRight;
             link.update(delta);
 
-            if (mapaAtual.getTileId((int) ((linkX + delta * 0.5f + 24) / 32),
+            if (mapaAtual.getTileId((int) ((linkX + delta * velocidade + 24) / 32),
                     (linkY / 32),
                     objectLayer) == 0) {
-                linkX += delta * 0.5f;
+                linkX += delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -195,14 +198,14 @@ public class Fase2 extends BasicGameState {
                         new VerticalSplitTransition());
             }
         } else {
-            deslocamento += delta;
-            if (deslocamento > 128) {
+            deslocamento += delta * velocidade;
+            if (deslocamento > 32) {
                 if (Dice.rolagem(5) == 1) {
-                    enterMenu.play();
-                    Container.setPontoDeRetorno(this.getID());
-                    game.enterState(2);
+                    batalha.play();
+                    game.enterState(2, new FadeOutTransition(Color.black),
+                    new FadeInTransition(Color.darkGray));
                 }
-                deslocamento -= 128;
+                deslocamento -= 32;
             }
         }
     }

@@ -7,6 +7,7 @@ package InterfaceGrafica;
 
 import SimuladorDeDados.Dice;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -18,6 +19,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.BlobbyTransition;
 import org.newdawn.slick.state.transition.CombinedTransition;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 /**
@@ -28,6 +31,7 @@ public class Fase3 extends BasicGameState {
 
     private final int spriteSize = 80;
     private final int tileSize = 32;
+    private final float velocidade = 0.4f;
 
     private TiledMap mapaAtual;
     private final String mapa3 = "images/mapa3.tmx";
@@ -39,6 +43,7 @@ public class Fase3 extends BasicGameState {
     private int linkX, linkY;
     private Sound enterMenu;
     private int deslocamento;
+    private Sound batalha;
 
     Fase3(int play) {
     }
@@ -54,6 +59,7 @@ public class Fase3 extends BasicGameState {
         spriteSheet = new SpriteSheet("images/oorjG.png", 90, 90);
         enterStage = new Sound("sound/enterstage.wav");
         enterMenu = new Sound("sound/entermenu.wav");
+        batalha = new Sound("sound/batalha.wav");
 
         linkX = 38 * tileSize;
         linkY = 1 * tileSize;
@@ -117,9 +123,9 @@ public class Fase3 extends BasicGameState {
             link.update(delta);
 
             if (mapaAtual.getTileId((int) ((linkX + 24) / 32),
-                    (int) ((linkY - delta * 0.5f) / 32),
+                    (int) ((linkY - delta * velocidade) / 32),
                     objectLayer) == 0) {
-                linkY -= delta * 0.5f;
+                linkY -= delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -129,9 +135,9 @@ public class Fase3 extends BasicGameState {
             link.update(delta);
 
             if (mapaAtual.getTileId(((linkX + 24) / 32),
-                    (int) ((linkY + delta * 0.5f + 16) / 32),
+                    (int) ((linkY + delta * velocidade + 16) / 32),
                     objectLayer) == 0) {
-                linkY += delta * 0.5f;
+                linkY += delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -140,10 +146,10 @@ public class Fase3 extends BasicGameState {
             link = movingLeft;
             link.update(delta);
 
-            if (mapaAtual.getTileId((int) ((linkX - delta * 0.5f) / 32),
+            if (mapaAtual.getTileId((int) ((linkX - delta * velocidade) / 32),
                     (int) (linkY / 32),
                     objectLayer) == 0) {
-                linkX -= delta * 0.5f;
+                linkX -= delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -152,10 +158,10 @@ public class Fase3 extends BasicGameState {
             link = movingRight;
             link.update(delta);
 
-            if (mapaAtual.getTileId((int) ((linkX + delta * 0.5f + 24) / 32),
+            if (mapaAtual.getTileId((int) ((linkX + delta * velocidade + 24) / 32),
                     (linkY / 32),
                     objectLayer) == 0) {
-                linkX += delta * 0.5f;
+                linkX += delta * velocidade;
                 this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
@@ -190,14 +196,14 @@ public class Fase3 extends BasicGameState {
                 game.enterState(6, new CombinedTransition(), new BlobbyTransition());
             }
         } else {
-            deslocamento += delta;
-            if (deslocamento > 128){
+            deslocamento += delta * velocidade;
+            if (deslocamento > 32) {
                 if (Dice.rolagem(5) == 1) {
-                    enterMenu.play();
-                    Container.setPontoDeRetorno(this.getID());
-                    game.enterState(2);
+                    batalha.play();
+                    game.enterState(2, new FadeOutTransition(Color.black),
+                    new FadeInTransition(Color.darkGray));
                 }
-                deslocamento -= 128;
+                deslocamento -= 32;
             }
         }
     }
