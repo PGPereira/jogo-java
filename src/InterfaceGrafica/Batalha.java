@@ -5,9 +5,7 @@
  */
 package InterfaceGrafica;
 
-import Personagem.Personagem;
 import SimuladorDeDados.Dice;
-import java.awt.Transparency;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -119,8 +117,8 @@ public class Batalha extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
-        valparaiso2x -= delta / 2;
-        valparaisoX -= delta;
+        valparaiso2x -= delta / 3;
+        valparaisoX -= delta / 4;
         if (valparaisoX <= -valparaisoLenght) {
             valparaisoX += valparaisoLenght;
         }

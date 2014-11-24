@@ -24,6 +24,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Ficha extends BasicGameState {
 
     private boolean manoplasB;
+    private boolean mouseRelease;
 
     Ficha(int ficha) {
     }
@@ -84,7 +85,7 @@ public class Ficha extends BasicGameState {
         g.setColor(Color.black);
         background.draw(0, 0, 1280, 640);
         g.fillRect(30, 30, 300, 300);
-        
+
         g.setColor(Color.white);
         foto.draw(30, 30, 300, 300);
         g.drawString("Nome: " + personagem.getNome(), 360, 30);
@@ -131,7 +132,7 @@ public class Ficha extends BasicGameState {
         g.drawString("Manoplas", 530, 360);
         g.drawString("Peitoral", 780, 360);
         g.drawString("Botas", 1030, 360);
-        
+
         g.setColor(Color.black);
         g.fillRect(30, 390, equipSize, equipSize);
         g.fillRect(280, 390, equipSize, equipSize);
@@ -223,7 +224,7 @@ public class Ficha extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
-        
+
         personagem = Container.getPersonagem();
 
         mouseX = Mouse.getX();
@@ -247,34 +248,29 @@ public class Ficha extends BasicGameState {
             peitoralB = false;
             botasB = false;
         }
-
-        //add.draw(810, 240, 25, 25);
-        if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 205 && mouseY >= 180)) {
-            if (Mouse.isButtonDown(0)) {
+        
+        if (Mouse.isButtonDown(0) && mouseRelease) {
+            if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 205 && mouseY >= 180)) {
                 select.play();
                 personagem.adicionaPontoStrenght();
             }
-        }
 
-        if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 235 && mouseY >= 210)) {
-            if (Mouse.isButtonDown(0)) {
+            if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 235 && mouseY >= 210)) {
                 select.play();
                 personagem.adicionaPontoIntelligence();
             }
-        }
 
-        if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 265 && mouseY >= 240)) {
-            if (Mouse.isButtonDown(0)) {
+            if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 265 && mouseY >= 240)) {
                 select.play();
                 personagem.adicionaPontoDexterity();
             }
-        }
 
-        if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 295 && mouseY >= 270)) {
-            if (Mouse.isButtonDown(0)) {
+            if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 295 && mouseY >= 270)) {
                 select.play();
                 personagem.adicionaPontoConstitution();
             }
+        } else if (!Mouse.isButtonDown(0)){
+            mouseRelease = false;
         }
     }
 }

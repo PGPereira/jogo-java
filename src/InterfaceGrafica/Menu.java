@@ -30,6 +30,7 @@ public class Menu extends BasicGameState {
     private Image play;
     private Image exit;
     private Image Background;
+    private boolean mouseRelease;
 
     Menu(int menu) {
     }
@@ -44,11 +45,9 @@ public class Menu extends BasicGameState {
         container.setUpdateOnlyWhenVisible(true);
         container.setVSync(true);
         container.setSmoothDeltas(true);
-        
-        //container.setFullscreen(true);
+
         container.setUpdateOnlyWhenVisible(true);
         container.setMultiSample(2);
-        //container.setMouseGrabbed(true);
         container.setClearEachFrame(true);
         container.setShowFPS(false);
         container.setMusicOn(false);
@@ -142,19 +141,19 @@ public class Menu extends BasicGameState {
             music = new Music("music/" + musicNumber + ".ogg");
             music.loop();
         }
-
-        if ((mouseX >= 100 && mouseX <= 150) && (mouseY <= 150 && mouseY >= 100)) {
-            if (Mouse.isButtonDown(0)) {
+        if (Mouse.isButtonDown(0) && mouseRelease) {
+            mouseRelease = false;
+            if ((mouseX >= 100 && mouseX <= 150) && (mouseY <= 150 && mouseY >= 100)) {
                 select.play();
                 game.enterState(Container.getPontoDeRetorno());
             }
-        }
 
-        if ((mouseX >= 100 && mouseX <= 150) && (mouseY <= 250 && mouseY >= 200)) {
-            if (Mouse.isButtonDown(0)) {
+            if ((mouseX >= 100 && mouseX <= 150) && (mouseY <= 250 && mouseY >= 200)) {
                 select.play();
                 System.exit(0);
             }
+        } else if (!Mouse.isButtonDown(0)) {
+            mouseRelease = true;
         }
     }
 }

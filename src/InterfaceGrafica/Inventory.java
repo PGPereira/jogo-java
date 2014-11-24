@@ -60,6 +60,7 @@ public class Inventory extends BasicGameState {
     private final int itemZoom = 290;
     private Image arma;
     private Sound itemSelect;
+    private boolean mouseRelease;
 
     Inventory(int invetario) {
     }
@@ -237,25 +238,28 @@ public class Inventory extends BasicGameState {
             game.enterState(Container.getPontoDeRetorno());
         }
 
-        if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
-                && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
-            if (Mouse.isButtonDown(0)) {
+        if (Mouse.isButtonDown(0) && mouseRelease) {
+            mouseRelease = false;
+
+            if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
+                    && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
                 select.play();
                 personagem.equipa(itemAtualIndex);
             }
-        }
 
-        for (int i = 0; i < 32; i++) {
-            if ((mouseX >= pontos.get(i).getX()
-                    && mouseX <= pontos.get(i).getX() + tamanhoItem)
-                    && (mouseY >= pontos.get(i).getY()
-                    && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
-                if (Mouse.isButtonDown(0)) {
+            for (int i = 0; i < 32; i++) {
+                if ((mouseX >= pontos.get(i).getX()
+                        && mouseX <= pontos.get(i).getX() + tamanhoItem)
+                        && (mouseY >= pontos.get(i).getY()
+                        && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
+
                     itemSelect.play();
                     itemAtualIndex = i;
                     break;
                 }
             }
+        } else if (!Mouse.isButtonDown(0)) {
+            mouseRelease = true;
         }
     }
 
@@ -265,18 +269,18 @@ public class Inventory extends BasicGameState {
             g.drawString("Nível: ",
                     margemLateral * 15 + itemZoom,
                     margemLateral * 1);
-            g.drawString(df.format(a.getNivel()), 
+            g.drawString(df.format(a.getNivel()),
                     margemLateral * 17 + itemZoom,
                     margemLateral * 1);
 
             g.drawString("Ataque Físico: "
-                    + (df.format(a.getAtaqueFisicoMin())) + " ~ " 
+                    + (df.format(a.getAtaqueFisicoMin())) + " ~ "
                     + (df.format(a.getAtaqueFisicoMax())),
                     margemLateral * 2 + itemZoom,
                     margemLateral * 4);
-            
+
             g.drawString("Ataque Mágico: "
-                    + (df.format(a.getAtaqueMagicoMin())) + " ~ " 
+                    + (df.format(a.getAtaqueMagicoMin())) + " ~ "
                     + (df.format(a.getAtaqueMagicoMax())),
                     margemLateral * 2 + itemZoom,
                     margemLateral * 5);
@@ -284,42 +288,42 @@ public class Inventory extends BasicGameState {
             g.drawString("Nível: " + a.getNivel(),
                     margemLateral * 15 + itemZoom,
                     margemLateral * 1);
-            g.drawString(df.format(a.getNivel()), 
+            g.drawString(df.format(a.getNivel()),
                     margemLateral * 17 + itemZoom,
                     margemLateral * 1);
 
             g.drawString("Defesa Física: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 4);
-            g.drawString(df.format(a.getDefesaFisica()), 
+            g.drawString(df.format(a.getDefesaFisica()),
                     margemLateral * 7 + itemZoom,
                     margemLateral * 4);
-            
+
             g.drawString("Defesa Mágica: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 5);
-            g.drawString(df.format(a.getDefesaMagica()), 
+            g.drawString(df.format(a.getDefesaMagica()),
                     margemLateral * 7 + itemZoom,
                     margemLateral * 5);
-            
+
             g.drawString("Esquiva: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 6);
-            g.drawString(df.format(a.getEsquiva()), 
+            g.drawString(df.format(a.getEsquiva()),
                     margemLateral * 7 + itemZoom,
                     margemLateral * 6);
-            
+
             g.drawString("Vida: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 7);
-            g.drawString(df.format(a.getHealthPoints()), 
+            g.drawString(df.format(a.getHealthPoints()),
                     margemLateral * 7 + itemZoom,
                     margemLateral * 7);
-            
+
             g.drawString("Mana Points: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 8);
-            g.drawString(df.format(a.getManaPoints()), 
+            g.drawString(df.format(a.getManaPoints()),
                     margemLateral * 7 + itemZoom,
                     margemLateral * 8);
         }
