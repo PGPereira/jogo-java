@@ -57,6 +57,7 @@ public class Inventory extends BasicGameState {
 
     private final int itemZoom = 290;
     private Image arma;
+    private Sound itemSelect;
 
     Inventory(int invetario) {
     }
@@ -77,14 +78,15 @@ public class Inventory extends BasicGameState {
         teia = new Image("images/Web.png");
 
         select = new Sound("sound/select.wav");
+        itemSelect = new Sound("sound/item.wav");
 
         background = new Image("images/png.png");
         personagem = Container.getPersonagem();
 
         inventario = personagem.getInventario();
 
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int j = 0; j < 8; j++) {
+            for (int i = 0; i < 4; i++) {
                 pontos.add(new Ponto(inicio + i * (tamanhoItem + margemEntreItens),
                         margemLateral + j * (tamanhoItem + margemEntreItens)));
             }
@@ -216,6 +218,12 @@ public class Inventory extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
 
+        personagem = Container.getPersonagem();
+        inventario = personagem.getInventario();
+
+        mouseX = Mouse.getX();
+        mouseY = tamanhoDaTela - Mouse.getY();
+
         try {
             itemAtual = inventario.recebeReferenciaItem(itemAtualIndex);
         } catch (Exception e) {
@@ -227,22 +235,21 @@ public class Inventory extends BasicGameState {
             game.enterState(Container.getPontoDeRetorno());
         }
 
-        if (Mouse.isButtonDown(0)) {
-            mouseX = Mouse.getX();
-            mouseY = tamanhoDaTela - Mouse.getY();
-
-            if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
-                    && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
-                //TODO 
+        if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
+                && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
+            if (Mouse.isButtonDown(0)) {
                 select.play();
                 personagem.equipa(itemAtualIndex);
             }
+        }
 
-            for (int i = 0; i < 32; i++) {
-                if ((mouseX >= pontos.get(i).getX()
-                        && mouseX <= pontos.get(i).getX() + tamanhoItem)
-                        && (mouseY >= pontos.get(i).getY()
-                        && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
+        for (int i = 0; i < 32; i++) {
+            if ((mouseX >= pontos.get(i).getX()
+                    && mouseX <= pontos.get(i).getX() + tamanhoItem)
+                    && (mouseY >= pontos.get(i).getY()
+                    && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
+                if (Mouse.isButtonDown(0)) {
+                    itemSelect.play();
                     itemAtualIndex = i;
                     break;
                 }
