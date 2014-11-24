@@ -50,6 +50,7 @@ public class Inventory extends BasicGameState {
 
     private final ArrayList<Ponto> pontos = new ArrayList<>();
     private final int tamanhoItem = 63;
+
     private final int inicio = 960;
     private final int margemLateral = 30;
     private final int margemEntreItens = 10;
@@ -168,7 +169,7 @@ public class Inventory extends BasicGameState {
                     margemLateral * 10 + itemZoom,
                     margemLateral * 2);
         }
-        
+
         g.drawLine(itemZoom + margemLateral * 2, margemLateral * 3,
                 inicio - margemLateral, margemLateral * 3);
 
@@ -240,9 +241,16 @@ public class Inventory extends BasicGameState {
                 break;
             }
         }
+
+        if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
+                && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
+            //TODO 
+            select.play();
+        }
     }
 
     public void desenhaAtributos(Graphics g, Equipamento a) {
+        //Arrumar isso aqui:
         if ("Arma".equals(a.getTipo())) {
             g.drawString("Nível: " + a.getNivel(),
                     margemLateral * 15 + itemZoom,
@@ -278,12 +286,115 @@ public class Inventory extends BasicGameState {
                     margemLateral * 8);
         }
 
-        g.drawLine(itemZoom + margemLateral * 2, itemZoom + margemLateral,
-                inicio - margemLateral, itemZoom + margemLateral);
+        g.setColor(Color.red);
+        g.fillRect(margemLateral * 2 + itemZoom,
+                margemLateral * 9,
+                inicio - (margemLateral * 3 + itemZoom),
+                itemZoom - margemLateral * 9);
+        g.setColor(Color.white);
+        g.drawString("Equipar", margemLateral * 2 + itemZoom, margemLateral * 9);
+
+        //linha horizontal
+        g.drawLine(margemLateral, itemZoom + margemLateral + 1,
+                inicio - margemLateral, itemZoom + margemLateral + 1);
+
+        //linha vertical
+        g.drawLine(inicio / 2, itemZoom + margemLateral + 1,
+                inicio / 2, tamanhoDaTela - margemLateral);
+
         desenhaAdicionaisComuns(g, a);
         desenhaAdicionaisRaros(g, a);
     }
-    
-    public void desenhaAdicionaisComuns(Graphics g, Equipamento a){}
-    public void desenhaAdicionaisRaros(Graphics g, Equipamento a){}
+
+    private void desenhaAdicionaisComuns(Graphics g, Equipamento a) {
+        g.drawString("Adicionais comuns:", margemLateral,
+                itemZoom + 2 * margemLateral);
+
+        g.drawString("Iniciativa: ", margemLateral,
+                itemZoom + 3 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalIni()), margemLateral * 6,
+                itemZoom + 3 * margemLateral);
+
+        g.drawString("Mana: ", margemLateral,
+                itemZoom + 4 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalMan()), margemLateral * 6,
+                itemZoom + 4 * margemLateral);
+
+        g.drawString("Vida: ", margemLateral,
+                itemZoom + 5 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalHP()), margemLateral * 6,
+                itemZoom + 5 * margemLateral);
+
+        g.drawString("Ataque Físico: ", margemLateral,
+                itemZoom + 6 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalAtkF()), margemLateral * 6,
+                itemZoom + 6 * margemLateral);
+
+        g.drawString("Ataque Mágico: ", margemLateral,
+                itemZoom + 7 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalAtkM()), margemLateral * 6,
+                itemZoom + 7 * margemLateral);
+
+        g.drawString("Defesa Física: ", margemLateral,
+                itemZoom + 8 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalDF()), margemLateral * 6,
+                itemZoom + 8 * margemLateral);
+
+        g.drawString("Defesa Mágica: ", margemLateral,
+                itemZoom + 9 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalDF()), margemLateral * 6,
+                itemZoom + 9 * margemLateral);
+
+        g.drawString("Esquiva: ", margemLateral,
+                itemZoom + 10 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalEsq()), margemLateral * 6,
+                itemZoom + 10 * margemLateral);
+    }
+
+    private void desenhaAdicionaisRaros(Graphics g, Equipamento a) {
+        g.drawString("Adicionais Raros:", inicio / 2 + margemLateral,
+                itemZoom + 2 * margemLateral);
+
+        g.drawString("Força: ", inicio / 2 + margemLateral,
+                itemZoom + 3 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalStr()),
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 3 * margemLateral);
+
+        g.drawString("Inteligência: ", inicio / 2 + margemLateral,
+                itemZoom + 4 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalInt()),
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 4 * margemLateral);
+
+        g.drawString("Destreza: ", inicio / 2 + margemLateral,
+                itemZoom + 5 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalStr()),
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 5 * margemLateral);
+
+        g.drawString("Constituição: ", inicio / 2 + margemLateral,
+                itemZoom + 6 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalStr()),
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 6 * margemLateral);
+
+        g.drawString("Experiência: ", inicio / 2 + margemLateral,
+                itemZoom + 7 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalXP()) + "%",
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 7 * margemLateral);
+
+        g.drawString("Crítico: ", inicio / 2 + margemLateral,
+                itemZoom + 8 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalCrit()) + "%",
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 8 * margemLateral);
+
+        g.drawString("Dano Critico: ", inicio / 2 + margemLateral,
+                itemZoom + 9 * margemLateral);
+        g.drawString(Integer.toString(a.getAdicionalCrDmg()) + "%",
+                inicio / 2 + margemLateral * 6,
+                itemZoom + 9 * margemLateral);
+    }
 }

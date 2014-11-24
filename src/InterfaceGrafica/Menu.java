@@ -44,7 +44,11 @@ public class Menu extends BasicGameState {
         container.setUpdateOnlyWhenVisible(true);
         container.setVSync(true);
         container.setSmoothDeltas(true);
-
+        
+        //container.setFullscreen(true);
+        container.setUpdateOnlyWhenVisible(true);
+        container.setMultiSample(2);
+        //container.setMouseGrabbed(true);
         container.setClearEachFrame(true);
         container.setShowFPS(false);
         container.setMusicOn(false);

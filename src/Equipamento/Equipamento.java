@@ -447,7 +447,7 @@ public abstract class Equipamento extends Item{
             }
         }
         
-        //Adicionais comuns
+        //Adicionais Incomuns
         if (e.getAdicionalCon() != 0 || e.getAdicionalDex() != 0 
                 || e.getAdicionalInt() != 0 || e.getAdicionalStr() != 0 
                 || e.getAdicionalXP() != 0 || e.getAdicionalCrit() != 0){
