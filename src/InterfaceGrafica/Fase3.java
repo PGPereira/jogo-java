@@ -25,6 +25,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * @author pedro_000
  */
 public class Fase3 extends BasicGameState {
+
     private final int spriteSize = 80;
     private final int tileSize = 32;
 
@@ -37,8 +38,10 @@ public class Fase3 extends BasicGameState {
 
     private int linkX, linkY;
     private Sound enterMenu;
+    private int deslocamento;
 
-    Fase3(int play) {}
+    Fase3(int play) {
+    }
 
     @Override
     public int getID() {
@@ -102,6 +105,7 @@ public class Fase3 extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+
         Input input = container.getInput();
 
         int objectLayer = mapaAtual.getLayerIndex("Objetos");
@@ -116,7 +120,7 @@ public class Fase3 extends BasicGameState {
                     (int) ((linkY - delta * 0.5f) / 32),
                     objectLayer) == 0) {
                 linkY -= delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -128,7 +132,7 @@ public class Fase3 extends BasicGameState {
                     (int) ((linkY + delta * 0.5f + 16) / 32),
                     objectLayer) == 0) {
                 linkY += delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -140,7 +144,7 @@ public class Fase3 extends BasicGameState {
                     (int) (linkY / 32),
                     objectLayer) == 0) {
                 linkX -= delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -152,7 +156,7 @@ public class Fase3 extends BasicGameState {
                     (linkY / 32),
                     objectLayer) == 0) {
                 linkX += delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -161,13 +165,13 @@ public class Fase3 extends BasicGameState {
             Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_C)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
             game.enterState(7);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_I)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
@@ -175,21 +179,24 @@ public class Fase3 extends BasicGameState {
         }
     }
 
-    private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
+    private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game, int delta)
             throws SlickException {
         if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
-            if (linkX/32 == 38 && linkY/32 == 1) {
+            if (linkX / 32 == 38 && linkY / 32 == 1) {
                 enterStage.play();
                 game.enterState(4, new CombinedTransition(), new BlobbyTransition());
-            } else if (linkX/32 == 1 && linkY/32 == 18) {
+            } else if (linkX / 32 == 1 && linkY / 32 == 18) {
                 enterStage.play();
                 game.enterState(6, new CombinedTransition(), new BlobbyTransition());
             }
         } else {
-            if (Dice.rolagem(32) == 1) {
-                enterMenu.play();
-                Container.setPontoDeRetorno(this.getID());
-                game.enterState(2);
+            deslocamento += delta;
+            if (deslocamento > 32){
+                if (Dice.rolagem(5) == 1) {
+                    enterMenu.play();
+                    Container.setPontoDeRetorno(this.getID());
+                    game.enterState(2);
+                }
             }
         }
     }

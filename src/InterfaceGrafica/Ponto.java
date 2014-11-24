@@ -10,6 +10,7 @@ package InterfaceGrafica;
  * @author pedro_000
  */
 public class Ponto {
+
     private final int X;
     private final int Y;
 
@@ -25,6 +26,4 @@ public class Ponto {
     public int getY() {
         return Y;
     }
-    
-    
 }

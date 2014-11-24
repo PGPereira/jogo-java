@@ -41,6 +41,7 @@ public class Fase2 extends BasicGameState {
     private Sound enterMenu;
 
     private int linkX, linkY;
+    private int deslocamento;
 
     Fase2(int play) {
     }
@@ -107,6 +108,7 @@ public class Fase2 extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+
         Input input = container.getInput();
 
         int objectLayer = mapaAtual.getLayerIndex("Objetos");
@@ -121,7 +123,7 @@ public class Fase2 extends BasicGameState {
                     (int) ((linkY - delta * 0.5f) / 32),
                     objectLayer) == 0) {
                 linkY -= delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -133,7 +135,7 @@ public class Fase2 extends BasicGameState {
                     (int) ((linkY + delta * 0.5f + 16) / 32),
                     objectLayer) == 0) {
                 linkY += delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -145,7 +147,7 @@ public class Fase2 extends BasicGameState {
                     (int) (linkY / 32),
                     objectLayer) == 0) {
                 linkX -= delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -157,8 +159,8 @@ public class Fase2 extends BasicGameState {
                     (linkY / 32),
                     objectLayer) == 0) {
                 linkX += delta * 0.5f;
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
-            this.trocaMapa(mapaAtual, transitionLayer, game);
         }
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
@@ -180,7 +182,7 @@ public class Fase2 extends BasicGameState {
         }
     }
 
-    private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
+    private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game, int delta)
             throws SlickException {
         if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
             if (linkX / 32 == 38 && linkY / 32 == 1) {
@@ -192,10 +194,13 @@ public class Fase2 extends BasicGameState {
                 game.enterState(5, new EmptyTransition(),
                         new VerticalSplitTransition());
             } else {
-                if (Dice.rolagem(32) == 1) {
-                    enterMenu.play();
-                    Container.setPontoDeRetorno(this.getID());
-                    game.enterState(2);
+                deslocamento += delta;
+                if (deslocamento > 32) {
+                    if (Dice.rolagem(5) == 1) {
+                        enterMenu.play();
+                        Container.setPontoDeRetorno(this.getID());
+                        game.enterState(2);
+                    }
                 }
             }
         }

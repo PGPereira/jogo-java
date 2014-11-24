@@ -250,6 +250,7 @@ public class Ficha extends BasicGameState {
         }
         
         if (Mouse.isButtonDown(0) && mouseRelease) {
+            mouseRelease = false;
             if ((mouseX >= 810 && mouseX <= 835) && (mouseY <= 205 && mouseY >= 180)) {
                 select.play();
                 personagem.adicionaPontoStrenght();
@@ -270,7 +271,7 @@ public class Ficha extends BasicGameState {
                 personagem.adicionaPontoConstitution();
             }
         } else if (!Mouse.isButtonDown(0)){
-            mouseRelease = false;
+            mouseRelease = true;
         }
     }
 }

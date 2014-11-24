@@ -32,6 +32,7 @@ public class Fase1 extends BasicGameState {
 
     private Sound enterStage;
     private Sound enterMenu;
+    private int deslocamento;
 
     Fase1(int play) {
     }
@@ -112,7 +113,7 @@ public class Fase1 extends BasicGameState {
                     (int) ((linkY - delta * 0.5f) / 32),
                     objectLayer) == 0) {
                 linkY -= delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -124,7 +125,7 @@ public class Fase1 extends BasicGameState {
                     (int) ((linkY + delta * 0.5f + 16) / 32),
                     objectLayer) == 0) {
                 linkY += delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -136,7 +137,7 @@ public class Fase1 extends BasicGameState {
                     (int) (linkY / 32),
                     objectLayer) == 0) {
                 linkX -= delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -148,7 +149,7 @@ public class Fase1 extends BasicGameState {
                     (linkY / 32),
                     objectLayer) == 0) {
                 linkX += delta * 0.5f;
-                this.trocaMapa(mapaAtual, transitionLayer, game);
+                this.trocaMapa(mapaAtual, transitionLayer, game, delta);
             }
         }
 
@@ -169,25 +170,22 @@ public class Fase1 extends BasicGameState {
             Container.setPontoDeRetorno(this.getID());
             game.enterState(1);
         }
-
-        if (input.isKeyPressed(Input.KEY_D)) {
-            enterMenu.play();
-            Container.setPontoDeRetorno(this.getID());
-            game.enterState(2);
-        }
     }
 
-    private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
+    private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game, int delta)
             throws SlickException {
         if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
             enterStage.play();
             game.enterState(4, new FadeOutTransition(Color.black),
                     new FadeInTransition(Color.darkGray));
         } else {
-            if (Dice.rolagem(32) == 1) {
-                enterMenu.play();
-                Container.setPontoDeRetorno(this.getID());
-                game.enterState(2);
+            deslocamento += delta;
+            if (deslocamento > 32){
+                if (Dice.rolagem(5) == 1) {
+                    enterMenu.play();
+                    Container.setPontoDeRetorno(this.getID());
+                    game.enterState(2);
+                }
             }
         }
     }
