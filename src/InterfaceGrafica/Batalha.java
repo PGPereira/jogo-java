@@ -6,6 +6,8 @@
 package InterfaceGrafica;
 
 import SimuladorDeDados.Dice;
+import java.awt.Transparency;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -42,6 +44,8 @@ public class Batalha extends BasicGameState {
     private int wagonHeight;
     private int wagonLenght;
     private int linkX;
+    private int valparaiso2Y;
+    private int valparaiso2x;
 
     Batalha(int batalha) {
     }
@@ -66,7 +70,10 @@ public class Batalha extends BasicGameState {
         linkX = 50;
 
         valparaisoY = 400;
+        valparaiso2Y = 350;
+
         valparaisoX = 0;
+        valparaiso2x = 500;
         valparaisoLenght = 2048;
 
         link = new Image("images/link.png");
@@ -78,22 +85,32 @@ public class Batalha extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        sky.draw(0, 0, 1280, 640);
+        sky.draw(0, 0, 2.89f);
+
+        valparaiso.draw(valparaiso2x, valparaisoY, Color.darkGray);
+        if (valparaiso2x + valparaisoLenght <= containerLenght) {
+            valparaiso.draw(valparaiso2x + valparaisoLenght, valparaisoY);
+        }
+
         valparaiso.draw(valparaisoX, valparaisoY);
         if (valparaisoX + valparaisoLenght <= containerLenght) {
             valparaiso.draw(valparaisoX + valparaisoLenght, valparaisoY);
         }
+
         for (int i = 0; i < 4; i++) {
             wagon.draw(i * wagonLenght, containerHeight - wagonHeight);
         }
+
         link.draw(linkX, containerHeight - (wagonHeight + linkHeight - 10), linkHeight, linkHeight);
         g.drawRect(linkX, containerHeight - (wagonHeight + linkHeight + 30),
                 linkHeight, 20);
-        
-        for (int i = 0; i < mobs; i++){
-            creep.draw(containerLenght - linkHeight*(i+1), containerHeight - (wagonHeight + linkHeight - 10),
+
+        for (int i = 0; i < mobs; i++) {
+            creep.draw(containerLenght - linkHeight * (i + 1) - linkX * (i + 1),
+                    containerHeight - (wagonHeight + linkHeight - 10),
                     linkHeight, linkHeight);
-            g.drawRect(containerLenght - linkHeight*(i+1), containerHeight - (wagonHeight + linkHeight + 30),
+            g.drawRect(containerLenght - linkHeight * (i + 1) - linkX * (i + 1),
+                    containerHeight - (wagonHeight + linkHeight + 30),
                     linkHeight, 20);
         }
     }
@@ -101,10 +118,15 @@ public class Batalha extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
-        valparaisoX -= delta * 4;
+        valparaiso2x -= delta / 2;
+        valparaisoX -= delta;
         if (valparaisoX <= -valparaisoLenght) {
             valparaisoX += valparaisoLenght;
         }
+        if (valparaiso2x <= -valparaisoLenght) {
+            valparaiso2x += valparaisoLenght;
+        }
+
         if (!novo) {
             mobs = Dice.rolagem(3);
             Batalha.novo = true;

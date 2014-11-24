@@ -9,6 +9,7 @@ import Equipamento.*;
 import Itens.Inventario;
 import Itens.Item;
 import Personagem.Personagem;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -47,6 +48,7 @@ public class Inventory extends BasicGameState {
     private int mouseY = 0;
 
     private final int tamanhoDaTela = 640;
+    private DecimalFormat df = new DecimalFormat("#.##");
 
     private final ArrayList<Ponto> pontos = new ArrayList<>();
     private final int tamanhoItem = 63;
@@ -260,37 +262,65 @@ public class Inventory extends BasicGameState {
     public void desenhaAtributos(Graphics g, Equipamento a) {
         //Arrumar isso aqui:
         if ("Arma".equals(a.getTipo())) {
-            g.drawString("Nível: " + a.getNivel(),
+            g.drawString("Nível: ",
                     margemLateral * 15 + itemZoom,
+                    margemLateral * 1);
+            g.drawString(df.format(a.getNivel()), 
+                    margemLateral * 17 + itemZoom,
                     margemLateral * 1);
 
             g.drawString("Ataque Físico: "
-                    + a.getAtaqueFisicoMin() + " ~ " + a.getAtaqueFisicoMax(),
+                    + (df.format(a.getAtaqueFisicoMin())) + " ~ " 
+                    + (df.format(a.getAtaqueFisicoMax())),
                     margemLateral * 2 + itemZoom,
                     margemLateral * 4);
+            
             g.drawString("Ataque Mágico: "
-                    + a.getAtaqueMagicoMin() + " ~ " + a.getAtaqueMagicoMax(),
+                    + (df.format(a.getAtaqueMagicoMin())) + " ~ " 
+                    + (df.format(a.getAtaqueMagicoMax())),
                     margemLateral * 2 + itemZoom,
                     margemLateral * 5);
         } else {
             g.drawString("Nível: " + a.getNivel(),
                     margemLateral * 15 + itemZoom,
                     margemLateral * 1);
+            g.drawString(df.format(a.getNivel()), 
+                    margemLateral * 17 + itemZoom,
+                    margemLateral * 1);
 
-            g.drawString("Defesa Física: " + a.getDefesaFisica(),
+            g.drawString("Defesa Física: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 4);
-            g.drawString("Defesa Mágica: " + a.getDefesaMagica(),
+            g.drawString(df.format(a.getDefesaFisica()), 
+                    margemLateral * 7 + itemZoom,
+                    margemLateral * 4);
+            
+            g.drawString("Defesa Mágica: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 5);
-            g.drawString("Esquiva: " + a.getEsquiva(),
+            g.drawString(df.format(a.getDefesaMagica()), 
+                    margemLateral * 7 + itemZoom,
+                    margemLateral * 5);
+            
+            g.drawString("Esquiva: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 6);
-            g.drawString("Vida: " + a.getHealthPoints(),
+            g.drawString(df.format(a.getEsquiva()), 
+                    margemLateral * 7 + itemZoom,
+                    margemLateral * 6);
+            
+            g.drawString("Vida: ",
                     margemLateral * 2 + itemZoom,
                     margemLateral * 7);
-            g.drawString("Mana Points: " + a.getManaPoints(),
+            g.drawString(df.format(a.getHealthPoints()), 
+                    margemLateral * 7 + itemZoom,
+                    margemLateral * 7);
+            
+            g.drawString("Mana Points: ",
                     margemLateral * 2 + itemZoom,
+                    margemLateral * 8);
+            g.drawString(df.format(a.getManaPoints()), 
+                    margemLateral * 7 + itemZoom,
                     margemLateral * 8);
         }
 
