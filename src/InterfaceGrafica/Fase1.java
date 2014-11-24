@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import SimuladorDeDados.Dice;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -156,19 +157,19 @@ public class Fase1 extends BasicGameState {
             Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_C)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
             game.enterState(7);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_I)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
             game.enterState(1);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_D)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
@@ -182,6 +183,12 @@ public class Fase1 extends BasicGameState {
             enterStage.play();
             game.enterState(4, new FadeOutTransition(Color.black),
                     new FadeInTransition(Color.darkGray));
+        } else {
+            if (Dice.rolagem(32) == 1) {
+                enterMenu.play();
+                Container.setPontoDeRetorno(this.getID());
+                game.enterState(2);
+            }
         }
     }
 }

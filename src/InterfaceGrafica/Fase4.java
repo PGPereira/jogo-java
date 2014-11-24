@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import SimuladorDeDados.Dice;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -24,6 +25,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * @author pedro_000
  */
 public class Fase4 extends BasicGameState {
+
     private final int spriteSize = 80;
     private final int tileSize = 32;
 
@@ -161,13 +163,13 @@ public class Fase4 extends BasicGameState {
             Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_C)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
             game.enterState(7);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_I)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
@@ -177,9 +179,15 @@ public class Fase4 extends BasicGameState {
 
     private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
             throws SlickException {
-        if (mapaAtual.getTileId((linkX/32), (linkY/32), transitionLayer) != 0) {
+        if (mapaAtual.getTileId((linkX / 32), (linkY / 32), transitionLayer) != 0) {
             enterStage.play();
             game.enterState(3, new EmptyTransition(), new VerticalSplitTransition());
+        } else {
+            if (Dice.rolagem(32) == 1) {
+                enterMenu.play();
+                Container.setPontoDeRetorno(this.getID());
+                game.enterState(2);
+            }
         }
     }
 }

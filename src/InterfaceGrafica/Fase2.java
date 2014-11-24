@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import SimuladorDeDados.Dice;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -38,9 +39,9 @@ public class Fase2 extends BasicGameState {
     private Animation link, movingUp, movingDown, movingLeft, movingRight;
     private Sound enterStage;
     private Sound enterMenu;
-    
+
     private int linkX, linkY;
-    
+
     Fase2(int play) {
     }
 
@@ -56,7 +57,7 @@ public class Fase2 extends BasicGameState {
         enterStage = new Sound("sound/enterstage.wav");
         enterMenu = new Sound("sound/entermenu.wav");
 
-        linkX = 38* tileSize ;
+        linkX = 38 * tileSize;
         linkY = 2 * tileSize;
 
         Image[] walkLeft = {
@@ -104,7 +105,7 @@ public class Fase2 extends BasicGameState {
                 spriteSize);
     }
 
-     @Override
+    @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
 
@@ -165,13 +166,13 @@ public class Fase2 extends BasicGameState {
             Container.setPontoDeRetorno(this.getID());
             game.enterState(0);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_C)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
             game.enterState(7);
         }
-        
+
         if (input.isKeyPressed(Input.KEY_I)) {
             enterMenu.play();
             Container.setPontoDeRetorno(this.getID());
@@ -181,15 +182,21 @@ public class Fase2 extends BasicGameState {
 
     private void trocaMapa(TiledMap mapaAtual, int transitionLayer, StateBasedGame game)
             throws SlickException {
-       if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
-            if (linkX/32 == 38 && linkY/32 == 1) {
+        if (mapaAtual.getTileId((int) ((linkX) / 32), (int) ((linkY) / 32), transitionLayer) != 0) {
+            if (linkX / 32 == 38 && linkY / 32 == 1) {
                 enterStage.play();
                 game.enterState(3, new FadeOutTransition(Color.gray),
-                    new FadeInTransition(Color.white));
-            } else if (linkX/32 == 9 && linkY/32 == 16) {
+                        new FadeInTransition(Color.white));
+            } else if (linkX / 32 == 9 && linkY / 32 == 16) {
                 enterStage.play();
-                game.enterState(5, new  EmptyTransition(),
+                game.enterState(5, new EmptyTransition(),
                         new VerticalSplitTransition());
+            } else {
+                if (Dice.rolagem(32) == 1) {
+                    enterMenu.play();
+                    Container.setPontoDeRetorno(this.getID());
+                    game.enterState(2);
+                }
             }
         }
     }

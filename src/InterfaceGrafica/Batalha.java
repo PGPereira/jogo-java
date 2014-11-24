@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import Personagem.Personagem;
 import SimuladorDeDados.Dice;
 import java.awt.Transparency;
 import org.newdawn.slick.Color;
@@ -134,7 +135,9 @@ public class Batalha extends BasicGameState {
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             Batalha.novo = false;
-            Container.getPersonagem().GanhaXP(delta);
+            Container.getPersonagem().GanhaXP(delta 
+                    * Container.getPersonagem().getNivel() 
+                    * Container.getPontoDeRetorno());
             game.enterState(Container.getPontoDeRetorno());
         }
     }

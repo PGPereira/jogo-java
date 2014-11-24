@@ -5,6 +5,7 @@
  */
 package InterfaceGrafica;
 
+import SimuladorDeDados.Dice;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -183,6 +184,12 @@ public class Fase3 extends BasicGameState {
             } else if (linkX/32 == 1 && linkY/32 == 18) {
                 enterStage.play();
                 game.enterState(6, new CombinedTransition(), new BlobbyTransition());
+            }
+        } else {
+            if (Dice.rolagem(32) == 1) {
+                enterMenu.play();
+                Container.setPontoDeRetorno(this.getID());
+                game.enterState(2);
             }
         }
     }
