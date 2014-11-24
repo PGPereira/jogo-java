@@ -285,7 +285,7 @@ public class Inventory extends BasicGameState {
                     margemLateral * 2 + itemZoom,
                     margemLateral * 5);
         } else {
-            g.drawString("Nível: " + a.getNivel(),
+            g.drawString("Nível: ",
                     margemLateral * 15 + itemZoom,
                     margemLateral * 1);
             g.drawString(df.format(a.getNivel()),

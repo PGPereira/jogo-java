@@ -87,9 +87,10 @@ public class Personagem implements Persona {
     public void setArma(Arma arma) {
         if (this.arma != null) {
             this.inventario.recebeItem(arma);
+            this.arma = null;
         }
-        this.arma = arma;
 
+        this.arma = arma;
     }
 
     public Elmo getElmo() {
@@ -99,6 +100,7 @@ public class Personagem implements Persona {
     public void setElmo(Elmo elmo) {
         if (this.elmo != null) {
             this.inventario.recebeItem(this.elmo);
+            this.elmo = null;
         }
         this.elmo = elmo;
     }
@@ -110,7 +112,9 @@ public class Personagem implements Persona {
     public void setCalcao(Calcao calcao) {
         if (this.calcao != null) {
             this.inventario.recebeItem(this.calcao);
+            this.calcao = null;
         }
+
         this.calcao = calcao;
     }
 
@@ -121,6 +125,7 @@ public class Personagem implements Persona {
     public void setBotas(Botas botas) {
         if (this.botas != null) {
             this.inventario.recebeItem(this.botas);
+            this.botas = null;
         }
         this.botas = botas;
     }
@@ -132,6 +137,7 @@ public class Personagem implements Persona {
     public void setManoplas(Manoplas manoplas) {
         if (this.manoplas != null) {
             this.inventario.recebeItem(this.manoplas);
+            this.manoplas = null;
         }
         this.manoplas = manoplas;
     }
@@ -143,6 +149,7 @@ public class Personagem implements Persona {
     public void setPeitoral(Peitoral peitoral) {
         if (this.peitoral != null) {
             this.inventario.recebeItem(this.peitoral);
+            this.peitoral = null;
         }
         this.peitoral = peitoral;
     }
@@ -193,35 +200,33 @@ public class Personagem implements Persona {
         return nivel;
     }
 
-    public void equipa(int equipa) {
-        //TODO
+    public void equipa(int item) {
+        Item equip = this.inventario.entregaItem(item);
         try {
-            Item equip = this.inventario.entregaItem(equipa);
-
             switch (equip.getTipo()) {
                 case "Arma":
                     Arma a = (Arma) equip;
-                    this.setArma(arma);
+                    this.setArma(a);
                     break;
                 case "Botas":
                     Botas b = (Botas) equip;
-                    this.setBotas(botas);
+                    this.setBotas(b);
                     break;
                 case "Calção":
                     Calcao c = (Calcao) equip;
-                    this.setCalcao(calcao);
+                    this.setCalcao(c);
                     break;
                 case "Elmo":
                     Elmo e = (Elmo) equip;
-                    this.setElmo(elmo);
+                    this.setElmo(e);
                     break;
                 case "Manoplas":
                     Manoplas m = (Manoplas) equip;
-                    this.setManoplas(manoplas);
+                    this.setManoplas(m);
                     break;
                 case "Peitoral":
                     Peitoral p = (Peitoral) equip;
-                    this.setPeitoral(peitoral);
+                    this.setPeitoral(p);
                     break;
                 default:
                     throw new RuntimeException("Aconteceu algo errado na hora de equipar");

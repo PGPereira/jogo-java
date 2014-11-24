@@ -43,7 +43,6 @@ public class Batalha extends BasicGameState {
     private int wagonHeight;
     private int wagonLenght;
     private int linkX;
-    private int valparaiso2Y;
     private int valparaiso2x;
 
     Batalha(int batalha) {
@@ -69,8 +68,6 @@ public class Batalha extends BasicGameState {
         linkX = 50;
 
         valparaisoY = 400;
-        valparaiso2Y = 350;
-
         valparaisoX = 0;
         valparaiso2x = 500;
         valparaisoLenght = 2048;

@@ -191,12 +191,13 @@ public class Fase3 extends BasicGameState {
             }
         } else {
             deslocamento += delta;
-            if (deslocamento > 32){
+            if (deslocamento > 128){
                 if (Dice.rolagem(5) == 1) {
                     enterMenu.play();
                     Container.setPontoDeRetorno(this.getID());
                     game.enterState(2);
                 }
+                deslocamento -= 128;
             }
         }
     }

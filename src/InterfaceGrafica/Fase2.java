@@ -193,15 +193,16 @@ public class Fase2 extends BasicGameState {
                 enterStage.play();
                 game.enterState(5, new EmptyTransition(),
                         new VerticalSplitTransition());
-            } else {
-                deslocamento += delta;
-                if (deslocamento > 32) {
-                    if (Dice.rolagem(5) == 1) {
-                        enterMenu.play();
-                        Container.setPontoDeRetorno(this.getID());
-                        game.enterState(2);
-                    }
+            }
+        } else {
+            deslocamento += delta;
+            if (deslocamento > 128) {
+                if (Dice.rolagem(5) == 1) {
+                    enterMenu.play();
+                    Container.setPontoDeRetorno(this.getID());
+                    game.enterState(2);
                 }
+                deslocamento -= 128;
             }
         }
     }

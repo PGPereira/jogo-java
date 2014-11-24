@@ -44,7 +44,6 @@ public class Ficha extends BasicGameState {
     private boolean calcaoB = false;
     private boolean peitoralB = false;
     private boolean botasB = false;
-    private boolean teiaB = false;
 
     private int mouseX;
     private int mouseY;
@@ -161,7 +160,7 @@ public class Ficha extends BasicGameState {
         if (personagem.getPeitoral() == null) {
             teia.draw(780, 390, equipSize, equipSize);
         } else {
-            peitoral.draw(30, 390, equipSize, equipSize);
+            peitoral.draw(780, 390, equipSize, equipSize);
         }
 
         if (personagem.getBotas() == null) {
@@ -203,7 +202,7 @@ public class Ficha extends BasicGameState {
         if (peitoralB) {
             g.fillRect(mouseX, mouseY, 200, 20);
             g.setColor(Color.black);
-            if (personagem.getBotas() == null) {
+            if (personagem.getPeitoral()== null) {
                 g.drawString(placeholder, mouseX, mouseY);
             } else {
                 g.drawString(personagem.getPeitoral().getNome(), mouseX, mouseY);
@@ -242,7 +241,7 @@ public class Ficha extends BasicGameState {
             peitoralB = mouseX >= 780 && mouseX <= 1000;
             botasB = mouseX >= 1030 && mouseX <= 1250;
         } else {
-            botasB = false;
+            elmoB = false;
             calcaoB = false;
             manoplasB = false;
             peitoralB = false;
