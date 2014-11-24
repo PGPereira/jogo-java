@@ -35,8 +35,12 @@ public class Inventario {
     public Item recebeReferenciaItem(int number) {
         return Inventario.get(number);
     }
+    
+    public Item entregaItem(int number) {
+        return Inventario.remove(number);
+    }
 
-    public void RecebeItem(Item item) {
+    public void recebeItem(Item item) {
         if ("Comida".equals(item.getTipo())) {
             this.adicionaProvisoes(1);
         } else {

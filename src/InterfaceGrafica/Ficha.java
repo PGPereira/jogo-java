@@ -223,6 +223,8 @@ public class Ficha extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
+        
+        personagem = Container.getPersonagem();
 
         mouseX = Mouse.getX();
         mouseY = alturaDaTela - Mouse.getY();

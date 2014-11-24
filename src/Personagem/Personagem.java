@@ -10,6 +10,7 @@ import SimuladorDeDados.Dice;
 import Ficha.Ficha;
 import Inventario.Inventario;
 import Excecoes.NoMoreFoodException;
+import Itens.Item;
 import Itens.Provisao;
 import Persona.Persona;
 import java.text.DecimalFormat;
@@ -72,18 +73,33 @@ public class Personagem implements Persona {
         return inventario;
     }
 
-    public Elmo elmo;
-    public Calcao calcao;
-    public Botas botas;
-    public Manoplas manoplas;
-    public Peitoral peitoral;
+    private Elmo elmo;
+    private Calcao calcao;
+    private Botas botas;
+    private Manoplas manoplas;
+    private Peitoral peitoral;
+    private Arma arma;
+
+    public Arma getArma() {
+        return arma;
+    }
+
+    public void setArma(Arma arma) {
+        if (this.arma != null) {
+            this.inventario.recebeItem(arma);
+        }
+        this.arma = arma;
+
+    }
 
     public Elmo getElmo() {
         return elmo;
     }
 
     public void setElmo(Elmo elmo) {
-        this.inventario.RecebeItem(this.elmo);
+        if (this.elmo != null){
+            this.inventario.recebeItem(this.elmo);
+        }
         this.elmo = elmo;
     }
 
@@ -92,7 +108,9 @@ public class Personagem implements Persona {
     }
 
     public void setCalcao(Calcao calcao) {
-        this.inventario.RecebeItem(this.calcao);
+        if (this.calcao != null) {
+            this.inventario.recebeItem(this.calcao);
+        }
         this.calcao = calcao;
     }
 
@@ -101,7 +119,9 @@ public class Personagem implements Persona {
     }
 
     public void setBotas(Botas botas) {
-        this.inventario.RecebeItem(this.botas);
+        if (this.botas != null) {
+            this.inventario.recebeItem(this.botas);
+        }
         this.botas = botas;
     }
 
@@ -110,7 +130,9 @@ public class Personagem implements Persona {
     }
 
     public void setManoplas(Manoplas manoplas) {
-        this.inventario.RecebeItem(this.manoplas);
+        if (this.manoplas != null) {
+            this.inventario.recebeItem(this.manoplas);
+        }
         this.manoplas = manoplas;
     }
 
@@ -119,7 +141,9 @@ public class Personagem implements Persona {
     }
 
     public void setPeitoral(Peitoral peitoral) {
-        this.inventario.RecebeItem(this.peitoral);
+        if (this.peitoral != null) {
+            this.inventario.recebeItem(this.peitoral);
+        }
         this.peitoral = peitoral;
     }
 
@@ -129,25 +153,6 @@ public class Personagem implements Persona {
         nextLevelXP *= nivel;
 
         pontosParaDistribuir += Dice.multiplaRolagem(2, 3);
-    }
-
-    private void metodoDeTesteLevelUP(int i) {
-        switch (i) {
-            case 1:
-                adicionaPontoConstitution();
-                break;
-            case 2:
-                adicionaPontoDexterity();
-                break;
-            case 3:
-                adicionaPontoIntelligence();
-                break;
-            case 4:
-                adicionaPontoStrenght();
-                break;
-            default:
-                System.out.println("Deu problema!");
-        }
     }
 
     public void adicionaComida(int i) {
@@ -186,6 +191,41 @@ public class Personagem implements Persona {
     //Caracteristicas da ficha.
     public int getNivel() {
         return nivel;
+    }
+
+    public void equipa(int equipa) {
+        //TODO
+        Item equip = this.inventario.entregaItem(equipa);
+        if (null != equip.getTipo()) {
+            switch (equip.getTipo()) {
+                case "Arma":
+                    Arma a = (Arma) equip;
+                    this.setArma(arma);
+                    break;
+                case "Botas":
+                    Botas b = (Botas) equip;
+                    this.setBotas(botas);
+                    break;
+                case "Calção":
+                    Calcao c = (Calcao) equip;
+                    this.setCalcao(calcao);
+                    break;
+                case "Elmo":
+                    Elmo e = (Elmo) equip;
+                    this.setElmo(elmo);
+                    break;
+                case "Manoplas":
+                    Manoplas m = (Manoplas) equip;
+                    this.setManoplas(manoplas);
+                    break;
+                case "Peitoral":
+                    Peitoral p = (Peitoral) equip;
+                    this.setPeitoral(peitoral);
+                    break;
+                default:
+                    throw new RuntimeException("Aconteceu algo errado na hora de equipar");
+            }
+        }
     }
 
     @Override

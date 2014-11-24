@@ -230,22 +230,23 @@ public class Inventory extends BasicGameState {
         if (Mouse.isButtonDown(0)) {
             mouseX = Mouse.getX();
             mouseY = tamanhoDaTela - Mouse.getY();
-        }
 
-        for (int i = 0; i < 32; i++) {
-            if ((mouseX >= pontos.get(i).getX()
-                    && mouseX <= pontos.get(i).getX() + tamanhoItem)
-                    && (mouseY >= pontos.get(i).getY()
-                    && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
-                itemAtualIndex = i;
-                break;
+            if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
+                    && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
+                //TODO 
+                select.play();
+                personagem.equipa(itemAtualIndex);
             }
-        }
 
-        if ((mouseX >= margemLateral * 2 + itemZoom && mouseX <= inicio - margemLateral)
-                && (mouseY >= margemLateral * 9 && mouseY <= itemZoom)) {
-            //TODO 
-            select.play();
+            for (int i = 0; i < 32; i++) {
+                if ((mouseX >= pontos.get(i).getX()
+                        && mouseX <= pontos.get(i).getX() + tamanhoItem)
+                        && (mouseY >= pontos.get(i).getY()
+                        && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
+                    itemAtualIndex = i;
+                    break;
+                }
+            }
         }
     }
 
