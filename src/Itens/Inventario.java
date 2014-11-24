@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Inventario;
+package Itens;
 
 import Excecoes.NoMoreFoodException;
-import Itens.Provisao;
-import Itens.Item;
 import SimuladorDeDados.Dice;
 import java.util.ArrayList;
 
@@ -20,7 +18,7 @@ public class Inventario {
     private int Moedas;
     private short QuantidadeInicialDeComida;
     private final ArrayList<Provisao> Comida = new ArrayList<>();
-    private ArrayList<Item> Inventario = new ArrayList<>();
+    private final ArrayList<Item> Inventario = new ArrayList<>();
 
     public Inventario() {
         Moedas = Dice.multiplaRolagem(50, 4);
@@ -35,7 +33,7 @@ public class Inventario {
     public Item recebeReferenciaItem(int number) {
         return Inventario.get(number);
     }
-    
+
     public Item entregaItem(int number) {
         return Inventario.remove(number);
     }

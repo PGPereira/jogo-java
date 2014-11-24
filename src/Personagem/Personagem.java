@@ -8,7 +8,7 @@ package Personagem;
 import Equipamento.*;
 import SimuladorDeDados.Dice;
 import Ficha.Ficha;
-import Inventario.Inventario;
+import Itens.Inventario;
 import Excecoes.NoMoreFoodException;
 import Itens.Item;
 import Itens.Provisao;
@@ -97,7 +97,7 @@ public class Personagem implements Persona {
     }
 
     public void setElmo(Elmo elmo) {
-        if (this.elmo != null){
+        if (this.elmo != null) {
             this.inventario.recebeItem(this.elmo);
         }
         this.elmo = elmo;
@@ -195,8 +195,9 @@ public class Personagem implements Persona {
 
     public void equipa(int equipa) {
         //TODO
-        Item equip = this.inventario.entregaItem(equipa);
-        if (null != equip.getTipo()) {
+        try {
+            Item equip = this.inventario.entregaItem(equipa);
+
             switch (equip.getTipo()) {
                 case "Arma":
                     Arma a = (Arma) equip;
@@ -225,6 +226,8 @@ public class Personagem implements Persona {
                 default:
                     throw new RuntimeException("Aconteceu algo errado na hora de equipar");
             }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Algo estranho aconteceu");
         }
     }
 

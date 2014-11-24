@@ -6,7 +6,7 @@
 package InterfaceGrafica;
 
 import Equipamento.*;
-import Inventario.Inventario;
+import Itens.Inventario;
 import Itens.Item;
 import Personagem.Personagem;
 import java.util.ArrayList;
