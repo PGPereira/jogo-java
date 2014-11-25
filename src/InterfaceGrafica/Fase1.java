@@ -187,7 +187,8 @@ public class Fase1 extends BasicGameState {
                 if (Dice.rolagem(5) == 1) {
                     batalha.play();
                     Container.setPontoDeRetorno(this.getID());
-                    game.enterState(2);
+                    game.enterState(2, new FadeOutTransition(Color.black),
+                    new FadeInTransition(Color.darkGray));
                 }
                 deslocamento -= 64;
             }
