@@ -183,13 +183,13 @@ public class Fase1 extends BasicGameState {
                     new FadeInTransition(Color.darkGray));
         } else {
             deslocamento += delta * velocidade;
-            if (deslocamento > 32) {
+            if (deslocamento > 64) {
                 if (Dice.rolagem(5) == 1) {
                     batalha.play();
                     Container.setPontoDeRetorno(this.getID());
                     game.enterState(2);
                 }
-                deslocamento -= 32;
+                deslocamento -= 64;
             }
         }
     }

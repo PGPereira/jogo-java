@@ -199,13 +199,13 @@ public class Fase2 extends BasicGameState {
             }
         } else {
             deslocamento += delta * velocidade;
-            if (deslocamento > 32) {
+            if (deslocamento > 64) {
                 if (Dice.rolagem(5) == 1) {
                     batalha.play();
                     game.enterState(2, new FadeOutTransition(Color.black),
                     new FadeInTransition(Color.darkGray));
                 }
-                deslocamento -= 32;
+                deslocamento -= 64;
             }
         }
     }

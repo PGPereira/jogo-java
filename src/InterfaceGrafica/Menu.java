@@ -6,6 +6,7 @@
 package InterfaceGrafica;
 
 import SimuladorDeDados.Dice;
+import java.text.DecimalFormat;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -15,13 +16,13 @@ import org.newdawn.slick.state.*;
  * @author pedro_000
  */
 public class Menu extends BasicGameState {
-
+    private final DecimalFormat df = new DecimalFormat("#");
     private final int alturaDaTela = 640;
 
     private int mouseX;
     private int mouseY;
 
-    private int musicVolume = 5;
+    private float musicVolume = 0.05f;
     private int musicNumber;
 
     private Music music;
@@ -46,7 +47,7 @@ public class Menu extends BasicGameState {
         container.setVSync(true);
         container.setSmoothDeltas(true);
 
-        container.setUpdateOnlyWhenVisible(true);
+        container.setUpdateOnlyWhenVisible(false);
         container.setMultiSample(2);
         container.setClearEachFrame(true);
         container.setShowFPS(false);
@@ -59,9 +60,9 @@ public class Menu extends BasicGameState {
 
         musicNumber = Dice.rolagem(22);
         music = new Music("music/" + musicNumber + ".ogg");
-        music.setVolume(musicVolume / 100);
+        music.setVolume(musicVolume);
         select = new Sound("sound/select.wav");
-        music.loop();
+        music.play();
 
         container.setMusicOn(true);
     }
@@ -78,7 +79,7 @@ public class Menu extends BasicGameState {
         exit.draw(100, 200, 50, 50);
 
         g.drawString("Utilize as setas cima e baixo para controlar o volume da música", 100, 300);
-        g.drawString("Volume: " + musicVolume, 100, 350);
+        g.drawString("Volume: " + df.format(musicVolume*100), 100, 350);
 
         g.drawString("Utilize as setas direita e esquerda para trocar de música", 100, 400);
         g.drawString("Música atual: " + musicNumber, 100, 450);
@@ -89,6 +90,17 @@ public class Menu extends BasicGameState {
         Input input = container.getInput();
         mouseX = Mouse.getX();
         mouseY = alturaDaTela - Mouse.getY();
+        
+        if (!music.playing()){
+            if (musicNumber == 22) {
+                musicNumber = 1;
+            } else {
+                musicNumber++;
+            }
+
+            music = new Music("music/" + musicNumber + ".ogg");
+            music.play();
+        }
 
         if (input.isKeyPressed(Input.KEY_ENTER)) {
             select.play();
@@ -103,18 +115,16 @@ public class Menu extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_UP)) {
             if (musicVolume < 100) {
                 float tempo = music.getPosition();
-                musicVolume += 5;
-                music.play(tempo, musicVolume / 100);
-                music.loop();
+                musicVolume += 0.05f;
+                music.play(tempo, musicVolume);
             }
         }
 
         if (input.isKeyPressed(Input.KEY_DOWN)) {
             if (musicVolume > 0) {
                 float tempo = music.getPosition();
-                musicVolume -= 5;
-                music.play(tempo, musicVolume / 100);
-                music.loop();
+                musicVolume -= 0.05f;
+                music.play(tempo, musicVolume);
             }
         }
 
@@ -139,7 +149,7 @@ public class Menu extends BasicGameState {
 
             music.stop();
             music = new Music("music/" + musicNumber + ".ogg");
-            music.loop();
+            music.play();
         }
         if (Mouse.isButtonDown(0) && mouseRelease) {
             mouseRelease = false;

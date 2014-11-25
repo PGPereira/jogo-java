@@ -48,7 +48,7 @@ public class Inventory extends BasicGameState {
     private int mouseY = 0;
 
     private final int tamanhoDaTela = 640;
-    private DecimalFormat df = new DecimalFormat("#.##");
+    private final DecimalFormat df = new DecimalFormat("#.#");
 
     private final ArrayList<Ponto> pontos = new ArrayList<>();
     private final int tamanhoItem = 63;
@@ -61,6 +61,8 @@ public class Inventory extends BasicGameState {
     private Image arma;
     private Sound itemSelect;
     private boolean mouseRelease;
+    private int itemHoover = -1;
+    private boolean isHoovering;
 
     Inventory(int invetario) {
     }
@@ -215,8 +217,19 @@ public class Inventory extends BasicGameState {
                         tamanhoItem, tamanhoItem);
             }
         }
+        
+        if (isHoovering){
+            g.fillRect(mouseX, mouseY, 200, 20);
+            g.setColor(Color.black);
+            try{
+                g.drawString(inventario.recebeReferenciaItem(itemHoover).getNome(), mouseX, mouseY);
+            } catch (IndexOutOfBoundsException e){
+                g.drawString("Não tem nada aqui", mouseX, mouseY);
+            } 
+        }
     }
 
+    //pontos.get(i).getX(), pontos.get(i).getY(), tamanhoItem, tamanhoItem
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
@@ -249,9 +262,9 @@ public class Inventory extends BasicGameState {
 
             for (int i = 0; i < 32; i++) {
                 if ((mouseX >= pontos.get(i).getX()
-                        && mouseX <= pontos.get(i).getX() + tamanhoItem)
+                        && mouseX <= (pontos.get(i).getX() + tamanhoItem))
                         && (mouseY >= pontos.get(i).getY()
-                        && mouseY <= pontos.get(i).getY() + tamanhoItem)) {
+                        && mouseY <= (pontos.get(i).getY() + tamanhoItem))) {
 
                     itemSelect.play();
                     itemAtualIndex = i;
@@ -260,6 +273,19 @@ public class Inventory extends BasicGameState {
             }
         } else if (!Mouse.isButtonDown(0)) {
             mouseRelease = true;
+        }
+        
+        isHoovering = false;
+        for (int i = 0; i < 32; i++) {
+            if ((mouseX >= pontos.get(i).getX() &&
+                    mouseX <= pontos.get(i).getX() + tamanhoItem) &&
+                    (mouseY >= pontos.get(i).getY() &&
+                    mouseY <= pontos.get(i).getY() + tamanhoItem)) {
+                
+                itemHoover = i;
+                isHoovering = true;
+                break;
+            }
         }
     }
 

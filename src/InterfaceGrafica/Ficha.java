@@ -25,6 +25,7 @@ public class Ficha extends BasicGameState {
 
     private boolean manoplasB;
     private boolean mouseRelease;
+    private Image arma;
 
     Ficha(int ficha) {
     }
@@ -40,6 +41,7 @@ public class Ficha extends BasicGameState {
 
     private final String placeholder = "Não tem nada equipado.";
 
+    private boolean armaB = false;
     private boolean elmoB = false;
     private boolean calcaoB = false;
     private boolean peitoralB = false;
@@ -47,6 +49,10 @@ public class Ficha extends BasicGameState {
 
     private int mouseX;
     private int mouseY;
+    private final int lateral = 30;
+    private final int fotoSize = 300;
+    private final int telaX = 1280;
+    private final int telaY = 640;
     private Sound select;
 
     private final int alturaDaTela = 640;
@@ -64,6 +70,7 @@ public class Ficha extends BasicGameState {
         equipSize = 220;
 
         foto = new Image("images/linkPixel.png");
+        arma = new Image("images/Arma.png");
         elmo = new Image("images/Elmo.png");
         calcao = new Image("images/Calcao.png");
         manoplas = new Image("images/Manoplas.png");
@@ -82,11 +89,12 @@ public class Ficha extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.setColor(Color.black);
-        background.draw(0, 0, 1280, 640);
-        g.fillRect(30, 30, 300, 300);
+        background.draw(0, 0, telaX, telaY);
+        g.fillRect(lateral, lateral, fotoSize, fotoSize);
+        g.fillRect(telaX - (lateral + fotoSize), lateral, fotoSize, fotoSize);
 
         g.setColor(Color.white);
-        foto.draw(30, 30, 300, 300);
+        foto.draw(lateral, lateral, fotoSize, fotoSize);
         g.drawString("Nome: " + personagem.getNome(), 360, 30);
         g.drawString("Classe: " + personagem.getClasse(), 600, 30);
 
@@ -95,9 +103,7 @@ public class Ficha extends BasicGameState {
 
         g.drawString("Moedas: " + personagem.getMoedasNoInventario(), 360, 90);
         g.drawString("Provisões: " + personagem.getQuantidadeProvisoes(), 600, 90);
-        //g.drawString("Peso: " + personagem.getPesoDoInventario() +" Kg", 840, 90); //<- tá crachando o jogo
-
-        g.drawLine(360, 120, 1250, 120);
+        g.drawLine(360, 120, telaX - (lateral * 2 + fotoSize), 120);
 
         g.drawString("Pontos para distribuir: " + personagem.getPontosParaDistribuir(), 360, 150);
         g.drawString("Força:", 360, 180);
@@ -124,7 +130,7 @@ public class Ficha extends BasicGameState {
         g.drawString(Integer.toString(personagem.getConstitutionModifier()), 780, 270);
         add.draw(810, 270, 25, 25);
 
-        g.drawLine(360, 330, 1250, 330);
+        g.drawLine(360, 330, telaX - (lateral * 2 + fotoSize), 330);
 
         g.drawString("Calcao", 30, 360);
         g.drawString("Elmo", 280, 360);
@@ -139,6 +145,12 @@ public class Ficha extends BasicGameState {
         g.fillRect(780, 390, equipSize, equipSize);
         g.fillRect(1030, 390, equipSize, equipSize);
 
+        if (personagem.getArma() == null){
+            teia.draw(telaX - (lateral + fotoSize), lateral, fotoSize, fotoSize);
+        } else {
+            arma.draw(telaX - (lateral + fotoSize), lateral, fotoSize, fotoSize);
+        }
+       
         if (personagem.getCalcao() == null) {
             teia.draw(30, 390, equipSize, equipSize);
         } else {
@@ -179,7 +191,16 @@ public class Ficha extends BasicGameState {
                 g.drawString(personagem.getBotas().getNome(), mouseX, mouseY);
             }
         }
-
+        if (armaB) {
+            g.fillRect(mouseX, mouseY, 200, 20);
+            g.setColor(Color.black);
+            if (personagem.getArma() == null) {
+                g.drawString(placeholder, mouseX, mouseY);
+            } else {
+                g.drawString(personagem.getArma().getNome(), mouseX, mouseY);
+            }
+        }
+        
         if (calcaoB) {
             g.fillRect(mouseX, mouseY, 200, 20);
             g.setColor(Color.black);
@@ -240,7 +261,12 @@ public class Ficha extends BasicGameState {
             manoplasB = mouseX >= 530 && mouseX <= 750;
             peitoralB = mouseX >= 780 && mouseX <= 1000;
             botasB = mouseX >= 1030 && mouseX <= 1250;
+            
+        } else if(mouseY >= lateral && mouseY <= fotoSize + lateral){
+            armaB = mouseX >= telaX - (lateral + fotoSize) 
+                    && mouseX <= telaX - lateral;
         } else {
+            armaB = false;
             elmoB = false;
             calcaoB = false;
             manoplasB = false;
